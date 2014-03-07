@@ -1,12 +1,10 @@
 package controllers;
 
-/*import javax.jms.*;
+import javax.jms.*;
 import org.apache.activemq.ActiveMQConnectionFactory;
 
-import javax.jms.MessageListener;*/
-
 public class JMSProducer {
-   /* public void produce() {
+    public void produce() {
         String url = "tcp://localhost:61616";
         ConnectionFactory factory = new ActiveMQConnectionFactory(url);
         try {
@@ -21,5 +19,5 @@ public class JMSProducer {
         }
         catch(JMSException exp) {
         }
-    }*/
+    }
 }
