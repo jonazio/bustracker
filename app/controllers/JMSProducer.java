@@ -4,15 +4,33 @@ import javax.jms.*;
 import org.apache.activemq.ActiveMQConnectionFactory;
 
 public class JMSProducer {
-    public void produce(String textMessage) {
-        String url = "tcp://localhost:61616";
-        ConnectionFactory factory = new ActiveMQConnectionFactory(url);
+
+    private Topic topic;
+
+    private static Connection connection;
+    private static Session session;
+    private ConnectionFactory connectionFactory;
+    private static MessageProducer producer;
+
+    //TODO close connection on application stop
+
+    public JMSProducer(String url, String topic){
+        connectionFactory = new ActiveMQConnectionFactory(url);
         try {
-            Connection connection = factory.createConnection();
-            Session session = connection.createSession(false,
+            connection = connectionFactory.createConnection();
+            session = connection.createSession(false,
                     Session.AUTO_ACKNOWLEDGE);
-            Topic topic = session.createTopic("BusTopic");
-            MessageProducer producer = session.createProducer(topic);
+            this.topic = session.createTopic(topic);
+            producer = session.createProducer(this.topic);
+        }
+        catch(JMSException exp) {
+            System.out.println(exp.getMessage());
+        }
+    }
+
+    public void produce(String textMessage) {
+
+        try {
             TextMessage msg = session.createTextMessage();
             msg.setText(textMessage);
             producer.send(msg);
