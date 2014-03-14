@@ -1,0 +1,9 @@
+# buspositions
+
+busposition:
+
+    - !!models.BusPosition
+        busId:      1
+        lineId:     1
+        gpsX:       10
+        gpsY:       10
