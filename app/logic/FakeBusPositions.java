@@ -7,13 +7,12 @@ import play.libs.Akka;
 import scala.concurrent.duration.Duration;
 
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeUnit.*;
 
 
 public class FakeBusPositions {
 
     public int currentPosition = 1;
-    JMSProducer jmsProducer;
+    public JMSProducer jmsProducer;
 
     public FakeBusPositions(){
 

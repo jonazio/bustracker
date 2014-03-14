@@ -11,12 +11,20 @@ import java.util.Map;
 
 public class Global extends GlobalSettings{
 
+    private FakeBusPositions fakeBusPositions;
+
     public void onStart(Application app){
         Logger.info("Application has started");
-       InitialData.insert(app);
+        InitialData.insert(app);
 
-        FakeBusPositions fakeBusPositions = new FakeBusPositions();
+        fakeBusPositions = new FakeBusPositions();
     }
+
+    public void onStop(Application app){
+        Logger.info("Application has stopped");
+        fakeBusPositions.jmsProducer.close();
+    }
+
 
     static class InitialData {
 

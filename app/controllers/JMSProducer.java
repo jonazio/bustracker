@@ -38,4 +38,16 @@ public class JMSProducer {
         catch(JMSException exp) {
         }
     }
+
+    // doesn't seem to work ...
+    public void close(){
+        try {
+            session.close();
+            connection.stop();
+            connection.close();
+            producer.close();
+        }
+        catch(JMSException exp) {
+        }
+    }
 }

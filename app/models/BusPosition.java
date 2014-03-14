@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.util.List;
 
 @Entity
 @Table(name="BusPosition")
@@ -31,6 +32,10 @@ public class BusPosition extends Model{
 
     public static BusPosition findBusPosition(Long busId){
         return find.byId(busId);
+    }
+
+    public static List<BusPosition> getAllBuses(){
+        return find.all();
     }
 
 }
