@@ -43,9 +43,7 @@ public class JMSProducer {
     public void close(){
         try {
             session.close();
-            connection.stop();
             connection.close();
-            producer.close();
         }
         catch(JMSException exp) {
         }
