@@ -3,7 +3,26 @@
 busposition:
 
     - !!models.BusPosition
+        seqId:      1
         busId:      1
         lineId:     1
         gpsX:       10
         gpsY:       10
+        timestamp: "2014-01-01"
+
+    - !!models.BusPosition
+       seqId:      2
+       busId:      1
+       lineId:     1
+       gpsX:       15
+       gpsY:       10
+       timestamp: "2014-01-02"
+
+
+    - !!models.BusPosition
+      seqId:      3
+      busId:      1
+      lineId:     1
+      gpsX:       25
+      gpsY:       10
+      timestamp: "2014-01-03"
