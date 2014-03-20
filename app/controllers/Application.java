@@ -24,4 +24,8 @@ public class Application extends Controller {
         return ok(Json.toJson(allBuses));
     }
 
+    public static Result jmsTest(){
+        return ok(jmstest.render());
+    }
+
 }
