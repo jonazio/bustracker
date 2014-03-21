@@ -2,6 +2,7 @@ package logic;
 
 import akka.actor.Props;
 import controllers.JMSProducer;
+import controllers.StompProducer;
 import models.BusPosition;
 import play.*;
 import play.libs.Akka;
@@ -15,6 +16,7 @@ public class FakeBusPositions {
 
     public int currentPosition = 1;
     public JMSProducer jmsProducer;
+    private StompProducer stompProducer;
     private static List<BusPosition> busPositions = null;
     private static int listIndex = 0;
     private static boolean backwards = false;
@@ -23,12 +25,14 @@ public class FakeBusPositions {
     public FakeBusPositions() {
 
         jmsProducer = new JMSProducer("tcp://localhost:61616", "BusTopic");
+        stompProducer = new StompProducer("localhost", 61613, "/topic/StompBusTopic");
 
         Akka.system().scheduler().schedule(Duration.create(1, TimeUnit.SECONDS), Duration.create(1, TimeUnit.SECONDS), new Runnable() {
             @Override
             public void run() {
                 BusPosition busPosition = getNextPosition();
                 jmsProducer.produce("BusId: " + busPosition.busId + " pos X: " + busPosition.gpsX + " pos Y: " + busPosition.gpsY);
+                stompProducer.produce("StompTest");
                 System.out.println("SeqId " + busPosition.seqId + " BusId: " + busPosition.busId + " pos X: " + busPosition.gpsX + " pos Y: " + busPosition.gpsY);
 
             }
