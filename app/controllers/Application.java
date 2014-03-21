@@ -1,7 +1,7 @@
 package controllers;
 
-import models.BusPosition;
-import play.*;
+import models.LineRoutes;
+import models.Position;
 import play.libs.Json;
 import play.mvc.*;
 
@@ -14,13 +14,13 @@ public class Application extends Controller {
     public static JMSProducer jmsProducer;
 
     public static Result index() {
-        BusPosition busPosition = new BusPosition();
+        Position busPosition = new Position();
         busPosition = busPosition.findBusPosition(1L);
         return ok(index.render("Busslinje: " + busPosition.lineId));
     }
 
     public static Result getAllLines(){
-        List<BusPosition> allBuses = BusPosition.getAllBuses();
+        List<LineRoutes> allBuses = LineRoutes.findAllBuses();
         return ok(Json.toJson(allBuses));
     }
 

@@ -1,10 +1,8 @@
 package logic;
 
-import akka.actor.Props;
 import controllers.JMSProducer;
 import controllers.StompProducer;
-import models.BusPosition;
-import play.*;
+import models.Position;
 import play.libs.Akka;
 import scala.concurrent.duration.Duration;
 
@@ -17,7 +15,7 @@ public class FakeBusPositions {
     public int currentPosition = 1;
     public JMSProducer jmsProducer;
     private StompProducer stompProducer;
-    private static List<BusPosition> busPositions = null;
+    private static List<Position> busPositions = null;
     private static int listIndex = 0;
     private static boolean backwards = false;
 
@@ -30,16 +28,16 @@ public class FakeBusPositions {
         Akka.system().scheduler().schedule(Duration.create(1, TimeUnit.SECONDS), Duration.create(1, TimeUnit.SECONDS), new Runnable() {
             @Override
             public void run() {
-                BusPosition busPosition = getNextPosition();
-                jmsProducer.produce("BusId: " + busPosition.busId + " pos X: " + busPosition.gpsX + " pos Y: " + busPosition.gpsY);
+                Position busPosition = getNextPosition();
+                jmsProducer.produce("BusId: " + busPosition.vehicleId + " pos X: " + busPosition.gpsX + " pos Y: " + busPosition.gpsY);
                 stompProducer.produce("StompTest");
-                System.out.println("SeqId " + busPosition.seqId + " BusId: " + busPosition.busId + " pos X: " + busPosition.gpsX + " pos Y: " + busPosition.gpsY);
+                System.out.println("SeqId " + busPosition.seqId + " BusId: " + busPosition.vehicleId + " pos X: " + busPosition.gpsX + " pos Y: " + busPosition.gpsY);
 
             }
         }, Akka.system().dispatcher());
     }
 
-    private static BusPosition getNextPosition() {
+    private static Position getNextPosition() {
         if (busPositions == null) {
             return initList();
         }
@@ -69,8 +67,8 @@ public class FakeBusPositions {
         return listIndex;
     }
 
-    private static BusPosition initList() {
-        busPositions = BusPosition.getAllBuses();
+    private static Position initList() {
+        busPositions = Position.getAllBuses();
         listIndex = 0;
         backwards = false;
         return busPositions.get(listIndex);

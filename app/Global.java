@@ -1,6 +1,6 @@
 import com.avaje.ebean.Ebean;
 import logic.FakeBusPositions;
-import models.BusPosition;
+import models.Position;
 import play.Application;
 import play.GlobalSettings;
 import play.Logger;
@@ -29,12 +29,14 @@ public class Global extends GlobalSettings{
     static class InitialData {
 
         public static void insert(Application application){
-            if (Ebean.find(BusPosition.class).findRowCount() == 0){
+            if (Ebean.find(Position.class).findRowCount() == 0){
 
                 Map<String, List<Object>> all = (Map<String,List<Object>>) Yaml.load("initial-data.yml");
 
+                Ebean.save(all.get("lineroutes"));
+
                 // insert dummy bus positions
-                Ebean.save(all.get("busposition"));
+                Ebean.save(all.get("position"));
 
             }
         }

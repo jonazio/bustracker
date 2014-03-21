@@ -1,28 +1,46 @@
-# buspositions
+# positions
 
-busposition:
+position:
 
-    - !!models.BusPosition
+    - !!models.Position
         seqId:      1
-        busId:      1
+        vehicleId:      1
         lineId:     1
         gpsX:       10
         gpsY:       10
         timestamp: "2014-01-01"
 
-    - !!models.BusPosition
+    - !!models.Position
        seqId:      2
-       busId:      1
+       vehicleId:      1
        lineId:     1
        gpsX:       15
        gpsY:       10
        timestamp: "2014-01-02"
 
 
-    - !!models.BusPosition
+    - !!models.Position
       seqId:      3
-      busId:      1
+      vehicleId:      1
       lineId:     1
       gpsX:       25
       gpsY:       10
       timestamp: "2014-01-03"
+
+# lineroutes
+lineroutes:
+
+    - !!models.LineRoutes
+        lineId:         1
+        lineType:       Buss
+        description:    Ettans linje
+
+    - !!models.LineRoutes
+        lineId:         2
+        lineType:       Buss
+        description:    Tvåans linje
+
+    - !!models.LineRoutes
+        lineId:         3
+        lineType:       Buss
+        description:    Treans linje

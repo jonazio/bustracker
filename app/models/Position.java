@@ -11,15 +11,15 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name="BusPosition")
-public class BusPosition extends Model{
+@Table(name="Positions")
+public class Position extends Model{
 
     @Id
     @Column(name="seq_id")
     public Long seqId;
 
-    @Column(name="bus_id")
-    public Long busId;
+    @Column(name="vehicle_id")
+    public Long vehicleId;
 
     @Column(name="line_id")
     public Long lineId;
@@ -33,15 +33,15 @@ public class BusPosition extends Model{
     @Column(name="timestamp")
     public Date timestamp;
 
-    public static Finder<Long, BusPosition> find = new Finder(
-            Long.class, BusPosition.class
+    public static Finder<Long, Position> find = new Finder(
+            Long.class, Position.class
     );
 
-    public static BusPosition findBusPosition(Long seqId){
+    public static Position findBusPosition(Long seqId){
         return  find.byId(seqId);
-        }
+    }
 
-    public static List<BusPosition> getAllBuses(){
+    public static List<Position> getAllBuses(){
         return find.all();
     }
 
