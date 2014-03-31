@@ -32,15 +32,18 @@ lineroutes:
 
     - !!models.LineRoutes
         lineId:         1
+        lineTopic:      LineTopic1
         lineType:       Buss
         description:    Ettans linje
 
     - !!models.LineRoutes
         lineId:         2
+        lineTopic:      LineTopic2
         lineType:       Buss
         description:    Tvåans linje
 
     - !!models.LineRoutes
         lineId:         3
+        lineTopic:      LineTopic3
         lineType:       Buss
         description:    Treans linje

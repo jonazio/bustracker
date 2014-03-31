@@ -17,6 +17,10 @@ public class LineRoutes extends Model {
     @Column(name="line_id")
     public Long lineId;
 
+    //Jag har lagt till den för att testa /Firat
+    @Column(name="line_topic")
+    public String lineTopic;
+
     @Column(name="line_type")
     public String lineType;
 
