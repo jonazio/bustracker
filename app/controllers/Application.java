@@ -28,4 +28,13 @@ public class Application extends Controller {
         return ok(jmstest.render());
     }
 
+    public static Result getAllPositions() {
+        Position busPosition = new Position();
+        busPosition = busPosition.findBusPosition(1L);
+        //return ok(index.render("Busslinje: " + busPosition.lineId));
+        List<Position> getAllPosAttrib = Position.getAllBuses();
+        return ok(Json.toJson(getAllPosAttrib));
+    }
+
+
 }

@@ -5,6 +5,7 @@
 # Home page
 GET        /                    controllers.Application.index()
 GET        /showlines           controllers.Application.getAllLines()
+GET        /getAllPositions     controllers.Application.getAllPositions()
 GET        /jmstest             controllers.Application.jmsTest()
 
 # Map static resources from the /public folder to the /assets URL path
