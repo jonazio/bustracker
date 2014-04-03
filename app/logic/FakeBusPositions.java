@@ -40,34 +40,36 @@ public class FakeBusPositions {
             public void run() {
                 try {
                     Position busPosition = getNextPosition();
-                     
+
                     // Set up ObjectMapper for bus positions to create JSON messages
                     ObjectMapper posMapper = new ObjectMapper();
-                    Map<String,LinkedHashMap> posMap  = new LinkedHashMap<String, LinkedHashMap>();
-                    LinkedHashMap<String, Long> posHashMap = new LinkedHashMap<String, Long>();
+                   // Map<String,LinkedHashMap> posMap  = new LinkedHashMap<String, LinkedHashMap>();
+                    LinkedHashMap<String, Object> posHashMap = new LinkedHashMap<String, Object>();
+                    posHashMap.put("messageType", "position");
                     posHashMap.put("LineId", busPosition.lineId);
                     posHashMap.put("BusId", busPosition.vehicleId);
                     posHashMap.put("posX", busPosition.gpsX);
                     posHashMap.put("posY", busPosition.gpsY);
 
-                    posMap.put("position",posHashMap);
+                   // posMap.put("position",posHashMap);
 
-                    String posJson = posMapper.writeValueAsString(posMap);
+                    String posJson = posMapper.writeValueAsString(posHashMap);
 
 
                     // Set up ObjectMapper for statuses to create JSON messages
                     ObjectMapper statMapper = new ObjectMapper();
-                    Map<String,LinkedHashMap> statMap  = new LinkedHashMap<String, LinkedHashMap>();
+                   // Map<String,LinkedHashMap> statMap  = new LinkedHashMap<String, LinkedHashMap>();
                     LinkedHashMap<String, Object> statHashMap = new LinkedHashMap<String, Object>();
+                    statHashMap.put("messageType", "status");
                     statHashMap.put("LineId", busPosition.lineId);
                     statHashMap.put("BusId", busPosition.vehicleId);
                     statHashMap.put("statusType", "statusType1");
                     statHashMap.put("message", "message1");
                     statHashMap.put("text","text1");
 
-                    statMap.put("status",statHashMap);
+                   // statMap.put("status",statHashMap);
 
-                    String statJson = posMapper.writeValueAsString(statMap);
+                    String statJson = posMapper.writeValueAsString(statHashMap);
 
                     // Put JSON messages to activeMq
                     jmsProducer.produce(posJson);
