@@ -6,17 +6,15 @@ package logic;
 
 import java.io.File;
 import java.math.BigDecimal;
+import java.net.URL;
 import java.util.List;
 import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import gen_gpx_files.*;
 import gen_gpx_files.Gpx.*;
-import java.util.Map;
-import java.util.LinkedHashMap;
+
 import java.util.ArrayList;
-import java.io.*;
 
 public class GpsXmlReader {
     private String posX;
@@ -34,7 +32,10 @@ public class GpsXmlReader {
            Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
 
            //Don't forget to add gpx file to right place.
-           Gpx root = (Gpx) jaxbUnmarshaller.unmarshal(new File("c:/projects/20140402.gpx"));
+           //URL url = getClass().getResource("logic/20140402.gpx");
+           //System.out.println(url);
+           //File file = new File(url.getPath());
+           Gpx root = (Gpx) jaxbUnmarshaller.unmarshal(new File("fake.gpx"));
            List<Trk> tracks = root.getTrk();
 
            for(Trk track : tracks) {
