@@ -33,6 +33,9 @@ public class FakeBusPositions {
     private static boolean backwards = false;
 
 
+    private StatusJson status;
+
+
     public FakeBusPositions() {
 
         jmsProducer = new JMSProducer("tcp://localhost:61616", "BusTopic");
@@ -57,41 +60,40 @@ public class FakeBusPositions {
 
 
 
-                    for (int i=0; i<getPos.size();i=i+2){
-                            ObjectMapper posMapper = new ObjectMapper();
-                            // Map<String,LinkedHashMap> posMap  = new LinkedHashMap<String, LinkedHashMap>();
-                            LinkedHashMap<String, Object> posHashMap = new LinkedHashMap<String, Object>();
-                            posHashMap.put("messageType", "position");
-                            posHashMap.put("LineId", busPosition.lineId);
-                            posHashMap.put("BusId", busPosition.vehicleId);
-                            //posHashMap.put("posX", busPosition.gpsX);
-                            posHashMap.put("posX",getPos.get(i) );
-                            // posHashMap.put("posY", busPosition.gpsY);
-                            posHashMap.put("posY",getPos.get(i+1) );
+                    for (int i=0,j=getPos.size()-1; i<getPos.size();i=i+2, j=j-2){
 
-                            // posMap.put("position",posHashMap);
+                          BusJson  bus = new BusJson("position",
+                                               busPosition.lineId,
+                                               busPosition.vehicleId,
+                                               getPos.get(i),
+                                               getPos.get(i+1));
+                           String posJson = bus.createBusJSON();
 
-                            String posJson = posMapper.writeValueAsString(posHashMap);
+                        BusJson bus2 = new BusJson("position",
+                                busPosition.lineId,
+                                Long.valueOf(2),
+                                getPos.get(j-1),
+                                getPos.get(j));
+
+                        String posJson2 = bus2.createBusJSON();
 
 
-                            // Set up ObjectMapper for statuses to create JSON messages
-                            ObjectMapper statMapper = new ObjectMapper();
-                            // Map<String,LinkedHashMap> statMap  = new LinkedHashMap<String, LinkedHashMap>();
-                            LinkedHashMap<String, Object> statHashMap = new LinkedHashMap<String, Object>();
-                            statHashMap.put("messageType", "status");
-                            statHashMap.put("LineId", busPosition.lineId);
-                            statHashMap.put("BusId", busPosition.vehicleId);
-                            statHashMap.put("statusType", "statusType1");
-                            statHashMap.put("message", "message1");
-                            statHashMap.put("text", "text1");
 
-                            // statMap.put("status",statHashMap);
+                           status = new StatusJson("status",
+                                                    busPosition.lineId,
+                                                    busPosition.vehicleId,
+                                                    "ok",
+                                                    "Bus is running as expected",
+                                                     "A text for bus status");
+                           String statJson = status.createStatusJSON();
 
-                            String statJson = posMapper.writeValueAsString(statHashMap);
+
 
                             // Put JSON messages to activeMq
                             jmsProducer.produce(posJson);
                             jmsProducer.produce(statJson);
+                            Thread.sleep(100);
+                            jmsProducer.produce(posJson2);
 
                             //jmsProducer.produce("BusId: " + busPosition.vehicleId + " pos X: " + busPosition.gpsX + " pos Y: " + busPosition.gpsY);
 
@@ -99,13 +101,9 @@ public class FakeBusPositions {
                             // System.out.println("SeqId " + busPosition.seqId + " BusId: " + busPosition.vehicleId + " pos X: " + busPosition.gpsX + " pos Y: " + busPosition.gpsY);
                             System.out.println(posJson);
                             System.out.println(statJson);
-                            Thread.sleep(1000);
-                        }
-
-
-                            // Set up ObjectMapper for bus positions to create JSON messages
-
-
+                            System.out.println(posJson2);
+                            Thread.sleep(100);
+                 }
 
                 }
                 catch (Exception e){
