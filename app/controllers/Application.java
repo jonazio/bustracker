@@ -32,8 +32,8 @@ public class Application extends Controller {
         Position busPosition = new Position();
         busPosition = busPosition.findBusPosition(1L);
         //return ok(index.render("Busslinje: " + busPosition.lineId));
-        List<Position> getAllPosAttrib = Position.getAllBuses();
-        return ok(Json.toJson(getAllPosAttrib));
+        List<Position> getAllPositionAttributes = Position.getAllBuses();
+        return ok(Json.toJson(getAllPositionAttributes));
     }
 
 

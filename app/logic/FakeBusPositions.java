@@ -3,6 +3,7 @@ package logic;
 import controllers.JMSProducer;
 import controllers.StompProducer;
 import models.Position;
+import play.Play;
 import play.libs.Akka;
 import scala.concurrent.duration.Duration;
 
@@ -38,8 +39,16 @@ public class FakeBusPositions {
 
     public FakeBusPositions() {
 
-        jmsProducer = new JMSProducer("tcp://localhost:61616", "BusTopic");
-        stompProducer = new StompProducer("localhost", 61613, "/topic/StompBusTopic");
+        final String hostValue = Play.application().configuration().getString("activemq.host");
+        final int jmsPortValue = Play.application().configuration().getInt("activemq.jmsPort");
+        final int stompPortValue = Play.application().configuration().getInt("activemq.stompPort");
+
+        //jmsProducer = new JMSProducer("tcp://localhost:61616", "BusTopic");
+        jmsProducer = new JMSProducer("tcp://" + hostValue + ":" + jmsPortValue, "BusTopic");
+
+        //stompProducer = new StompProducer("localhost", 61613, "/topic/StompBusTopic");
+        stompProducer = new StompProducer(hostValue, stompPortValue, "/topic/StompBusTopic");
+
 
 
         Akka.system().scheduler().schedule(Duration.create(1, TimeUnit.SECONDS), Duration.create(1, TimeUnit.SECONDS), new Runnable() {
@@ -53,7 +62,7 @@ public class FakeBusPositions {
                     //Create GpsXmlReader object to be able to read gpx file
                     GpsXmlReader gpx = new GpsXmlReader();
 
-                    //gpx positions are stored in a hashmap. Iterate through the map and craete JSON messahges.
+                    //gpx positions are stored in a arraylist. Loop through the list and craete JSON messages.
                     ArrayList<BigDecimal> getPos = gpx.getPositions();
 
 
