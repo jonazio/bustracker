@@ -1,4 +1,5 @@
 import com.avaje.ebean.Ebean;
+import controllers.JMSProducer;
 import logic.FakeBusPositions;
 import models.Position;
 import play.Application;
@@ -22,7 +23,10 @@ public class Global extends GlobalSettings{
 
     public void onStop(Application app){
         Logger.info("Application has stopped");
-        fakeBusPositions.jmsProducer.close();
+       // fakeBusPositions.jmsProducer.close();
+        for (JMSProducer jmsProd :fakeBusPositions.jmsProducer) {
+            jmsProd.close();
+        }
     }
 
 
