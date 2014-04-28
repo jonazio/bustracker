@@ -24,7 +24,7 @@ public class Global extends GlobalSettings{
     public void onStop(Application app){
         Logger.info("Application has stopped");
        // fakeBusPositions.jmsProducer.close();
-        for (JMSProducer jmsProd :fakeBusPositions.jmsProducer) {
+        for (JMSProducer jmsProd :fakeBusPositions.jmsTopicHashMap.values()) {
             jmsProd.close();
         }
     }

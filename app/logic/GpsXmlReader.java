@@ -22,7 +22,7 @@ public class GpsXmlReader {
     public ArrayList positions;
 
 
-    public GpsXmlReader() {
+    public GpsXmlReader(String gpxFile) {
        try {
 
            ArrayList<BigDecimal> positions = new ArrayList<BigDecimal>();
@@ -35,7 +35,8 @@ public class GpsXmlReader {
            //URL url = getClass().getResource("logic/20140402.gpx");
            //System.out.println(url);
            //File file = new File(url.getPath());
-           Gpx root = (Gpx) jaxbUnmarshaller.unmarshal(new File("fake.gpx"));
+          // Gpx root = (Gpx) jaxbUnmarshaller.unmarshal(new File("fake.gpx"));
+           Gpx root = (Gpx) jaxbUnmarshaller.unmarshal(new File(gpxFile));
            List<Trk> tracks = root.getTrk();
 
            for(Trk track : tracks) {

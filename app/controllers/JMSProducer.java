@@ -7,10 +7,14 @@ public class JMSProducer {
 
     private Topic topic;
 
-    private static Connection connection;
-    private static Session session;
+   // private static Connection connection;
+   // private static Session session;
     private ConnectionFactory connectionFactory;
-    private static MessageProducer producer;
+ //   private static MessageProducer producer;
+
+    private Connection connection;
+    private Session session;
+    private MessageProducer producer;
 
     //TODO close connection on application stop
 
