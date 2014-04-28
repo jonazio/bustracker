@@ -100,7 +100,7 @@ public class FakeBusPositions {
 
 
                         BusJson bus3 = new BusJson("position",
-                                                    Long.valueOf(2),
+                                                    busPosition.lineId,
                                                     Long.valueOf(3),
                                                     getPosLine1.get(i+1500),
                                                     getPosLine1.get(i+1501));
@@ -114,7 +114,7 @@ public class FakeBusPositions {
 
                         if (i <= getPosLine2.size() ) {
                                bus4 = new BusJson("position",
-                                    Long.valueOf(3),
+                                    Long.valueOf(2),
                                     Long.valueOf(4),
                                     getPosLine2.get(i),
                                     getPosLine2.get(i + 1));
@@ -125,7 +125,7 @@ public class FakeBusPositions {
 
                         if (i+400 <= getPosLine2.size()) {
                            bus5 = new BusJson("position",
-                                    Long.valueOf(3),
+                                    Long.valueOf(2),
                                     Long.valueOf(5),
                                     getPosLine2.get(i + 400),
                                     getPosLine2.get(i + 401));
