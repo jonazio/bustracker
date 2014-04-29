@@ -14,21 +14,21 @@ public class BusJson {
     private String messageType;
     private Long lineId;
     private Long busId;
-    private BigDecimal posX;
-    private BigDecimal posY;
+    private BigDecimal lat;
+    private BigDecimal lon;
     private ObjectMapper posMapper;
     LinkedHashMap<String, Object> posHashMap;
 
     public BusJson(String messageType,
                    Long lineId,
                    Long busId,
-                   BigDecimal posX,
-                   BigDecimal posY) {
+                   BigDecimal lat,
+                   BigDecimal lon) {
         this.messageType = messageType;
         this.lineId = lineId;
         this.busId = busId;
-        this.posX = posX;
-        this.posY = posY;
+        this.lat = lat;
+        this.lon = lon;
 
     }
 
@@ -40,8 +40,8 @@ public class BusJson {
             posHashMap.put("messageType", this.messageType);
             posHashMap.put("lineId", this.lineId);
             posHashMap.put("busId", this.busId);
-            posHashMap.put("posX",this.posX );
-            posHashMap.put("posY", this.posY );
+            posHashMap.put("lat",this.lat );
+            posHashMap.put("lon", this.lon );
             return posMapper.writeValueAsString(posHashMap);
 
         }
@@ -77,20 +77,20 @@ public class BusJson {
         this.busId = busId;
     }
 
-    public BigDecimal getPosX() {
-        return posX;
+    public BigDecimal getLat() {
+        return lat;
     }
 
-    public void setPosX(BigDecimal posX) {
-        this.posX = posX;
+    public void setlat(BigDecimal lat) {
+        this.lat = lat;
     }
 
-    public BigDecimal getPosY() {
-        return posY;
+    public BigDecimal getLon() {
+        return lon;
     }
 
-    public void setPosY(BigDecimal posY) {
-        this.posY = posY;
+    public void setLon(BigDecimal lon) {
+        this.lon = lon;
     }
 }
 

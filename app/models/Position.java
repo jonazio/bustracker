@@ -24,11 +24,11 @@ public class Position extends Model{
     @Column(name="line_id")
     public Long lineId;
 
-    @Column(name="gps_x")
-    public Long gpsX;
+    @Column(name="gps_lat")
+    public Long gpsLat;
 
-    @Column(name="gps_y")
-    public Long gpsY;
+    @Column(name="gps_lon")
+    public Long gpsLon;
 
     @Column(name="timestamp")
     public Date timestamp;

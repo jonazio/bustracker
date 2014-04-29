@@ -6,16 +6,16 @@ position:
         seqId:      1
         vehicleId:      1
         lineId:     1
-        gpsX:       10
-        gpsY:       10
+        gpsLat:       10
+        gpsLon:       10
         timestamp: "2014-01-01"
 
     - !!models.Position
        seqId:      2
        vehicleId:      1
        lineId:     1
-       gpsX:       15
-       gpsY:       10
+       gpsLat:       15
+       gpsLon:       10
        timestamp: "2014-01-02"
 
 
@@ -23,8 +23,8 @@ position:
       seqId:      3
       vehicleId:      1
       lineId:     1
-      gpsX:       25
-      gpsY:       10
+      gpsLat:       25
+      gpsLon:       10
       timestamp: "2014-01-03"
 
 # lineroutes
