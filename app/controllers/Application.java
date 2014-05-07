@@ -1,5 +1,6 @@
 package controllers;
 
+import logic.LineJson;
 import models.LineRoutes;
 import models.Position;
 import play.libs.Json;
@@ -36,5 +37,8 @@ public class Application extends Controller {
         return ok(Json.toJson(getAllPositionAttributes));
     }
 
+    public static Result getAllCheckpoints(){
+        return ok(LineJson.getAllCheckpoints());
+    }
 
 }

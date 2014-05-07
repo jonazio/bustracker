@@ -15,7 +15,6 @@ public class StatusJson {
     private String statusType;
     private String message;
     private String text;
-    private ObjectMapper statMapper;
     LinkedHashMap<String, Object> statHashMap;
 
     public StatusJson(String messageType,
@@ -36,7 +35,7 @@ public class StatusJson {
 
     public String createStatusJSON() {
         try {
-            statMapper = new ObjectMapper();
+            ObjectMapper statMapper = new ObjectMapper();
             statHashMap = new LinkedHashMap<String, Object>();
 
             statHashMap.put("messageType", this.messageType);

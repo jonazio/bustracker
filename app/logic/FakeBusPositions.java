@@ -2,6 +2,8 @@ package logic;
 
 import controllers.JMSProducer;
 import controllers.StompProducer;
+import models.Checkpoint;
+import models.LineCheckpoint;
 import models.LineRoutes;
 import models.Position;
 import play.Play;
@@ -79,7 +81,12 @@ public class FakeBusPositions {
                     ArrayList<BigDecimal> getPosLine1 = gpxLine1.getPositions();
                     ArrayList<BigDecimal> getPosLine2 = gpxLine2.getPositions();
 
+
+
+
                     int checkStatus = 0;
+                    System.out.println(LineJson.getAllCheckpoints());
+
                     for (int i=0,j=getPosLine1.size()-1; i<getPosLine1.size();i=i+2, j=j-2){
 
 
@@ -92,10 +99,10 @@ public class FakeBusPositions {
                            String posJson = bus.createBusJSON();
 
                         BusJson bus2 = new BusJson("position",
-                                busPosition.lineId,
-                                Long.valueOf(2),
-                                getPosLine1.get(j-1),
-                                getPosLine1.get(j));
+                                            busPosition.lineId,
+                                            Long.valueOf(2),
+                                            getPosLine1.get(j-1),
+                                            getPosLine1.get(j));
                         String posJson2 = bus2.createBusJSON();
 
 
@@ -107,7 +114,7 @@ public class FakeBusPositions {
                         String posJson3 = bus3.createBusJSON();
 
 
-                         String posJson4 = null;
+                        String posJson4 = null;
                         String posJson5 = null;
                         BusJson bus4 = null;
                         BusJson bus5 = null;
@@ -186,34 +193,17 @@ public class FakeBusPositions {
                         jmsTopicHashMap.get(bus3.getLineId()).produce(posJson3);
                         jmsTopicHashMap.get(bus4.getLineId()).produce(posJson4);
                         jmsTopicHashMap.get(bus5.getLineId()).produce(posJson5);
-                       // lineTopicHashMap.get(status.getLineId()).produce(statJson);
-               /*
-                           status = new StatusJson("status",
-                                                    busPosition.lineId,
-                                                    busPosition.vehicleId,
-                                                    "ok",
-                                                    "Bus is running as expected",
-                                                     "A text for bus status");
-                           String statJson = status.createStatusJSON();*/
 
 
-                            // Put JSON messages to activeMq
-                           // jmsProducer.produce(posJson);
-                            //jmsProducer.produce(statJson);
-                            //Thread.sleep(100);
-                            //jmsProducer.produce(posJson2);
+                        stompProducer.produce("StompTest");
+                        // System.out.println("SeqId " + busPosition.seqId + " BusId: " + busPosition.vehicleId + " pos X: " + busPosition.gpsLat + " pos Y: " + busPosition.gpsLon);
+                        System.out.println(posJson);
+                        System.out.println(posJson2);
+                        System.out.println(posJson3);
+                        System.out.println(posJson4);
+                        System.out.println(posJson5);
 
-                            //jmsProducer.produce("BusId: " + busPosition.vehicleId + " pos X: " + busPosition.gpsX + " pos Y: " + busPosition.gpsY);
-
-                            stompProducer.produce("StompTest");
-                            // System.out.println("SeqId " + busPosition.seqId + " BusId: " + busPosition.vehicleId + " pos X: " + busPosition.gpsX + " pos Y: " + busPosition.gpsY);
-                            System.out.println(posJson);
-                            System.out.println(posJson2);
-                            System.out.println(posJson3);
-                            System.out.println(posJson4);
-                            System.out.println(posJson5);
-
-                            Thread.sleep(700);
+                            Thread.sleep(500);
                  }
 
                 }
@@ -227,9 +217,8 @@ public class FakeBusPositions {
 
     private HashMap createAllTopics(){
 
-        HashMap<Long, JMSProducer> lineTopicHashMap;
+        HashMap<Long, JMSProducer> lineTopicHashMap = new LinkedHashMap<Long, JMSProducer>();
         int lineSize = getAllBusLines().size();
-        lineTopicHashMap = new LinkedHashMap<Long, JMSProducer>();
 
         for (int i =0; i<lineSize;i++){
             System.out.println("Get:   "+getAllBusLines().get(i).lineTopic);

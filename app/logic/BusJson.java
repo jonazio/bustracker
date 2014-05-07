@@ -16,8 +16,8 @@ public class BusJson {
     private Long busId;
     private BigDecimal lat;
     private BigDecimal lon;
-    private ObjectMapper posMapper;
     LinkedHashMap<String, Object> posHashMap;
+
 
     public BusJson(String messageType,
                    Long lineId,
@@ -34,7 +34,7 @@ public class BusJson {
 
     public String createBusJSON() {
         try {
-            posMapper = new ObjectMapper();
+            ObjectMapper posMapper = new ObjectMapper();
             posHashMap = new LinkedHashMap<String, Object>();
 
             posHashMap.put("messageType", this.messageType);

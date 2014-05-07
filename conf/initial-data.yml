@@ -1,5 +1,4 @@
 # positions
-
 position:
 
     - !!models.Position
@@ -27,23 +26,144 @@ position:
       gpsLon:       10
       timestamp: "2014-01-03"
 
-# lineroutes
+# line_routes
 lineroutes:
 
     - !!models.LineRoutes
         lineId:         1
+        lineCode:       1
         lineTopic:      LineTopic1
         lineType:       Buss
-        description:    Ettans linje
+        lineName:       Blåbusslinje 1
+        routeFrom:      Stora Essingen (Essingetorget)
+        routeTo:        Frihamnen
 
     - !!models.LineRoutes
         lineId:         2
-        lineTopic:      LineTopic2
+        lineCode:       1
+        lineTopic:      LineTopic1
         lineType:       Buss
-        description:    Tvåans linje
+        lineName:       Blåbusslinje 1
+        routeFrom:      Frihamnen
+        routeTo:        Stora Essingen (Essingetorget)
 
     - !!models.LineRoutes
         lineId:         3
-        lineTopic:      LineTopic3
+        lineCode:       2
+        lineTopic:      LineTopic2
         lineType:       Buss
-        description:    Treans linje
+        lineName:       Blåbusslinje 2
+        routeFrom:      Norrtull
+        routeTo:        Sofia (Barnängen)
+
+    - !!models.LineRoutes
+        lineId:         4
+        lineCode:       2
+        lineTopic:      LineTopic2
+        lineType:       Buss
+        lineName:       Blåbusslinje 2
+        routeFrom:      Sofia (Barnängen)
+        routeTo:        Norrtull
+
+# checkpoint
+checkpoint:
+
+   - !!models.Checkpoint
+       checkpointId:   1
+       checkpointName: Scheelegatan
+       checkpointLat:  59.3329554
+       checkpointLon:  18.0440446
+
+   - !!models.Checkpoint
+       checkpointId:   3
+       checkpointName: Vasagatan
+       checkpointLat:  59.3338089
+       checkpointLon:  18.0568461
+
+   - !!models.Checkpoint
+       checkpointId:   5
+       checkpointName: Hötorget
+       checkpointLat:  59.3352937
+       checkpointLon:  18.0624829
+
+   - !!models.Checkpoint
+       checkpointId:   7
+       checkpointName: Stureplan
+       checkpointLat:  59.3363423
+       checkpointLon:  18.0728971
+
+
+   - !!models.Checkpoint
+       checkpointId:   2
+       checkpointName: Scheelegatan
+       checkpointLat:  59.3328327
+       checkpointLon:  18.0449767
+
+   - !!models.Checkpoint
+       checkpointId:   4
+       checkpointName: Vasagatan
+       checkpointLat:  59.333991
+       checkpointLon:  18.0575374
+
+   - !!models.Checkpoint
+       checkpointId:   6
+       checkpointName: Hötorget
+       checkpointLat:  59.3355038
+       checkpointLon:  18.0632806
+
+   - !!models.Checkpoint
+       checkpointId:   8
+       checkpointName: Stureplan
+       checkpointLat:  59.3368295
+       checkpointLon:  18.073414
+
+# line_checkpoint
+linecheckpoint:
+
+   - !!models.LineCheckpoint
+          lineCheckpointId: 1
+          checkpointSeq:     1
+          checkpointId:      1
+          lineId:            1
+
+   - !!models.LineCheckpoint
+          lineCheckpointId: 2
+          checkpointSeq:     2
+          checkpointId:      3
+          lineId:            1
+
+   - !!models.LineCheckpoint
+          lineCheckpointId: 3
+          checkpointSeq:     3
+          checkpointId:      5
+          lineId:            1
+
+   - !!models.LineCheckpoint
+          lineCheckpointId: 4
+          checkpointSeq:     4
+          checkpointId:      7
+          lineId:            1
+
+   - !!models.LineCheckpoint
+          lineCheckpointId: 5
+          checkpointSeq:     1
+          checkpointId:      2
+          lineId:            2
+
+   - !!models.LineCheckpoint
+          lineCheckpointId: 6
+          checkpointSeq:     2
+          checkpointId:      4
+          lineId:            2
+
+   - !!models.LineCheckpoint
+          lineCheckpointId: 7
+          checkpointSeq:     3
+          checkpointId:      6
+          lineId:            2
+
+   - !!models.LineCheckpoint
+          lineCheckpointId: 8
+          checkpointSeq:     4
+          checkpointId:      8
+          lineId:            2

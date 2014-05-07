@@ -42,6 +42,10 @@ public class Global extends GlobalSettings{
                 // insert dummy bus positions
                 Ebean.save(all.get("position"));
 
+                Ebean.save(all.get("checkpoint"));
+
+                Ebean.save(all.get("linecheckpoint"));
+
             }
         }
 

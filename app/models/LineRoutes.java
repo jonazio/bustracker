@@ -3,10 +3,7 @@ package models;
 
 import play.db.ebean.Model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
@@ -17,14 +14,27 @@ public class LineRoutes extends Model {
     @Column(name="line_id")
     public Long lineId;
 
+    @Column(name="line_code")
+    public String lineCode;
+
     @Column(name="line_topic")
     public String lineTopic;
+
+    @Column(name="line_name")
+    public String lineName;
 
     @Column(name="line_type")
     public String lineType;
 
-    @Column(name="description")
-    public String description;
+    @Column (name="route_from")
+    public String routeFrom;
+
+    @Column (name="route_to")
+    public String routeTo;
+
+    //@OneToMany()
+   // List<LineCheckpoint> lineCheckpoints;
+
 
     public static Finder<Long, LineRoutes> find = new Finder(
             Long.class, LineRoutes.class
@@ -40,6 +50,11 @@ public class LineRoutes extends Model {
                 .findList();
         return lineList;
     }
+
+    public static List<LineRoutes> getAllLines(){
+        return find.all();
+    }
+
 
 }
 
