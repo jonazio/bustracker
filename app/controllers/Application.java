@@ -3,8 +3,11 @@ package controllers;
 import logic.LineJson;
 import models.LineRoutes;
 import models.Position;
+import org.apache.http.client.methods.HttpOptions;
+import org.apache.http.protocol.HTTP;
 import play.libs.Json;
 import play.mvc.*;
+
 
 import views.html.*;
 
@@ -13,6 +16,8 @@ import java.util.List;
 public class Application extends Controller {
 
     public static JMSProducer jmsProducer;
+
+
 
     public static Result index() {
         Position busPosition = new Position();
@@ -38,6 +43,10 @@ public class Application extends Controller {
     }
 
     public static Result getAllCheckpoints(){
+
+
+
+
         return ok(LineJson.getAllCheckpoints());
     }
 

@@ -76,7 +76,7 @@ public class LineJson {
                 //return objectMapper.writeValueAsString(lineHashMap);
                 // System.out.println(json);
             }
-            jsonFinal = "[" + strBuilder.toString() + "]";
+            jsonFinal = "parseCheckpoints([" + strBuilder.toString() + "]);";
             return jsonFinal;
 
         } catch (Exception e) {
