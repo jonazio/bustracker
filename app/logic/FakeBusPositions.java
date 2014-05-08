@@ -34,17 +34,17 @@ public class FakeBusPositions {
 
 
     private static final int initLine1_1 = 0;
-    private static final int initLine1_2 = 400;
-    private static final int initLine1_3 = 1000;
-    private static final int initLine1_4 = 1400;
-    private static final int initLine1_5 = 2000;
+    private static final int initLine1_2 = 800;
+    private static final int initLine1_3 = 1500;
+    private static final int initLine1_4 = 1900;
+    private static final int initLine1_5 = 2200;
     private static final int initLine1Reverse_1 = 0;
-    private static final int initLine1Reverse_2 = 900;
-    private static final int initLine1Reverse_3 = 1500;
+    private static final int initLine1Reverse_2 = 1200;
+    private static final int initLine1Reverse_3 = 1700;
     private static final int initLine2_1 = 0;
-    private static final int initLine2_2 = 400;
+    private static final int initLine2_2 = 800;
     private static final int initLine2Reverse_1 = 0;
-    private static final int initLine2Reverse_2 = 300;
+    private static final int initLine2Reverse_2 = 700;
 
     /*
     private int counter1 = 0;
@@ -79,29 +79,6 @@ public class FakeBusPositions {
 
                     Position busPosition = getNextPosition();
 
-
-
-                    //Create GpsXmlReader object to be able to read gpx file
-                   /* GpsXmlReader gpxLine1 = new GpsXmlReader("fake_line1.gpx");
-                    GpsXmlReader gpxLine2 = new GpsXmlReader("fake_line2.gpx");*/
-/*
-                    HashMap<String, GpsXmlReader> lineCoordinateMap = new LinkedHashMap<String, GpsXmlReader>();
-                    lineCoordinateMap.put("line1",new GpsXmlReader("line-1-stops.gpx"));
-                    lineCoordinateMap.put("line1-reverse",new GpsXmlReader("line-1-stops-reverse.gpx"));
-                    lineCoordinateMap.put("line2",new GpsXmlReader("line-2-no-stops.gpx"));
-                    lineCoordinateMap.put("line2-reverse",new GpsXmlReader("line-2-no-stops-reverse.gpx"));
-
-
-
-                    //gpx positions are stored in a arraylist. Loop through the list and craete JSON messages.
-                  /*  ArrayList<BigDecimal> getPosLine1 = gpxLine1.getPositions();
-                    ArrayList<BigDecimal> getPosLine2 = gpxLine2.getPositions();*/
-                   /*
-                    ArrayList<BigDecimal> getPosLine1 = lineCoordinateMap.get("line1").getPositions();
-                    ArrayList<BigDecimal> getPosLine1Reverse = lineCoordinateMap.get("line1-reverse").getPositions();
-                    ArrayList<BigDecimal> getPosLine2 = lineCoordinateMap.get("line2").getPositions();
-                    ArrayList<BigDecimal> getPosLine2Reverse = lineCoordinateMap.get("line2-reverse").getPositions();
-                    */
 
                     // LineId:1 coordinates
                     Coordinates getPosLine1 = new Coordinates("line-1-stops.gpx");
@@ -186,6 +163,7 @@ public class FakeBusPositions {
                                 createVehicleOnMap(4L,12L,getPosLine2Reverse,ctrLine2Reverse_2,initLine2Reverse_2);
 
 
+                      Thread.sleep(500);
                      /*   counter6 =
                                 createVehicleOnMap(4L,
                                         1L,
@@ -213,9 +191,7 @@ public class FakeBusPositions {
                                    Long vehicleId,
                                    Coordinates posList,
                                    int counter,
-                                   int initCounter) throws InterruptedException{
-
-
+                                   int initCounter) {
 
 
         if (counter == posList.getList().size()){
@@ -236,7 +212,7 @@ public class FakeBusPositions {
 
     }
 
-    private void createVehicleCoordinates (Long lineId, Long vehicleId, BigDecimal vehicleLat, BigDecimal vehicleLon) throws InterruptedException{
+    private void createVehicleCoordinates (Long lineId, Long vehicleId, BigDecimal vehicleLat, BigDecimal vehicleLon){
 
         BusJson bus = new BusJson("position",
                 lineId,
@@ -248,8 +224,6 @@ public class FakeBusPositions {
         String posJson = bus.createBusJSON();
         jmsTopicHashMap.get(LineRoutes.findLine(lineId).lineCode).produce(posJson);
         System.out.println(posJson);
-        Thread.sleep(500);
-
 
     }
 
