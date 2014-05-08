@@ -15,7 +15,7 @@ public class LineRoutes extends Model {
     public Long lineId;
 
     @Column(name="line_code")
-    public String lineCode;
+    public Long lineCode;
 
     @Column(name="line_topic")
     public String lineTopic;
@@ -54,7 +54,6 @@ public class LineRoutes extends Model {
     public static List<LineRoutes> getAllLines(){
         return find.all();
     }
-
 
 }
 

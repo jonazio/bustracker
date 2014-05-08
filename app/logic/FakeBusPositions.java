@@ -25,11 +25,35 @@ import java.util.ArrayList;
 public class FakeBusPositions {
 
     public int currentPosition = 1;
+    public HashMap<Long, JMSProducer> jmsTopicHashMap;
+
     private StompProducer stompProducer;
     private static List<Position> busPositions = null;
     private static int listIndex = 0;
     private static boolean backwards = false;
-    public HashMap<Long, JMSProducer> jmsTopicHashMap;
+
+
+    private static final int initLine1_1 = 0;
+    private static final int initLine1_2 = 400;
+    private static final int initLine1_3 = 1000;
+    private static final int initLine1_4 = 1400;
+    private static final int initLine1_5 = 2000;
+    private static final int initLine1Reverse_1 = 0;
+    private static final int initLine1Reverse_2 = 900;
+    private static final int initLine1Reverse_3 = 1500;
+    private static final int initLine2_1 = 0;
+    private static final int initLine2_2 = 400;
+    private static final int initLine2Reverse_1 = 0;
+    private static final int initLine2Reverse_2 = 300;
+
+    /*
+    private int counter1 = 0;
+    private int counter2 = 0;
+    private int counter3 = 0;
+    private int counter4 = 0;
+    private int counter5 = 50;
+    private int counter6 =100;
+    */
 
     //Line routes list
     private static List<LineRoutes> lineRoutes = null;
@@ -44,27 +68,9 @@ public class FakeBusPositions {
 
     public FakeBusPositions() {
 
-        //final String hostValue = Play.application().configuration().getString("activemq.host");
-        //final int jmsPortValue = Play.application().configuration().getInt("activemq.jmsPort");
-        //final int stompPortValue = Play.application().configuration().getInt("activemq.stompPort");
-
-      /*  int lineSize = getAllBusLines().size();
-        lineTopicHashMap = new LinkedHashMap<Long, JMSProducer>();
-
-        for (int i =0; i<lineSize;i++){
-            System.out.println("Get:   "+getAllBusLines().get(i).lineTopic);
-            lineTopicHashMap.put(getAllBusLines().get(i).lineId,
-                    new JMSProducer("tcp://" + hostValue + ":" + jmsPortValue, getAllBusLines().get(i).lineTopic));
-
-        }*/
         jmsTopicHashMap=createAllTopics();
 
-
-        //stompProducer = new StompProducer("localhost", 61613, "/topic/StompBusTopic");
         stompProducer = new StompProducer(hostValue, stompPortValue, "/topic/StompBusTopic");
-
-
-
 
         Akka.system().scheduler().schedule(Duration.create(1, TimeUnit.SECONDS), Duration.create(1, TimeUnit.SECONDS), new Runnable() {
             @Override
@@ -73,138 +79,126 @@ public class FakeBusPositions {
 
                     Position busPosition = getNextPosition();
 
+
+
                     //Create GpsXmlReader object to be able to read gpx file
-                    GpsXmlReader gpxLine1 = new GpsXmlReader("fake_line1.gpx");
-                    GpsXmlReader gpxLine2 = new GpsXmlReader("fake_line2.gpx");
+                   /* GpsXmlReader gpxLine1 = new GpsXmlReader("fake_line1.gpx");
+                    GpsXmlReader gpxLine2 = new GpsXmlReader("fake_line2.gpx");*/
+/*
+                    HashMap<String, GpsXmlReader> lineCoordinateMap = new LinkedHashMap<String, GpsXmlReader>();
+                    lineCoordinateMap.put("line1",new GpsXmlReader("line-1-stops.gpx"));
+                    lineCoordinateMap.put("line1-reverse",new GpsXmlReader("line-1-stops-reverse.gpx"));
+                    lineCoordinateMap.put("line2",new GpsXmlReader("line-2-no-stops.gpx"));
+                    lineCoordinateMap.put("line2-reverse",new GpsXmlReader("line-2-no-stops-reverse.gpx"));
+
+
 
                     //gpx positions are stored in a arraylist. Loop through the list and craete JSON messages.
-                    ArrayList<BigDecimal> getPosLine1 = gpxLine1.getPositions();
-                    ArrayList<BigDecimal> getPosLine2 = gpxLine2.getPositions();
+                  /*  ArrayList<BigDecimal> getPosLine1 = gpxLine1.getPositions();
+                    ArrayList<BigDecimal> getPosLine2 = gpxLine2.getPositions();*/
+                   /*
+                    ArrayList<BigDecimal> getPosLine1 = lineCoordinateMap.get("line1").getPositions();
+                    ArrayList<BigDecimal> getPosLine1Reverse = lineCoordinateMap.get("line1-reverse").getPositions();
+                    ArrayList<BigDecimal> getPosLine2 = lineCoordinateMap.get("line2").getPositions();
+                    ArrayList<BigDecimal> getPosLine2Reverse = lineCoordinateMap.get("line2-reverse").getPositions();
+                    */
+
+                    // LineId:1 coordinates
+                    Coordinates getPosLine1 = new Coordinates("line-1-stops.gpx");
+                    // LineId:1 reverse coordinates
+                    Coordinates getPosLine1Reverse = new Coordinates("line-1-stops-reverse.gpx");
+                    // LineId:2 coordinates
+                    Coordinates getPosLine2 = new Coordinates("line-2-no-stops.gpx");
+                    // LineId:2 revese coordinates
+                    Coordinates getPosLine2Reverse = new Coordinates("line-2-no-stops-reverse.gpx");
+
 
 
 
 
                     int checkStatus = 0;
-                    System.out.println(LineJson.getAllCheckpoints());
-
-                    for (int i=0,j=getPosLine1.size()-1; i<getPosLine1.size();i=i+2, j=j-2){
+                    //System.out.println(LineJson.getAllCheckpoints());
 
 
-
-                         BusJson  bus = new BusJson("position",
-                                               busPosition.lineId,
-                                               busPosition.vehicleId,
-                                               getPosLine1.get(i),
-                                               getPosLine1.get(i+1));
-                           String posJson = bus.createBusJSON();
-
-                        BusJson bus2 = new BusJson("position",
-                                            busPosition.lineId,
-                                            Long.valueOf(2),
-                                            getPosLine1.get(j-1),
-                                            getPosLine1.get(j));
-                        String posJson2 = bus2.createBusJSON();
+                    int ctrLine1_1  = initLine1_1;
+                    int ctrLine1_2  = initLine1_2;
+                    int ctrLine1_3 = initLine1_3;
+                    int ctrLine1_4 = initLine1_4 ;
+                    int ctrLine1_5 = initLine1_5;
+                    int ctrLine1Reverse_1 = initLine1Reverse_1;
+                    int ctrLine1Reverse_2 = initLine1Reverse_2;
+                    int ctrLine1Reverse_3 = initLine1Reverse_3;
+                    int ctrLine2_1 = initLine2_1;
+                    int ctrLine2_2 = initLine2_2;
+                    int ctrLine2Reverse_1 = initLine2Reverse_1;
+                    int ctrLine2Reverse_2 = initLine2Reverse_2;
 
 
-                        BusJson bus3 = new BusJson("position",
-                                                    busPosition.lineId,
-                                                    Long.valueOf(3),
-                                                    getPosLine1.get(i+1500),
-                                                    getPosLine1.get(i+1501));
-                        String posJson3 = bus3.createBusJSON();
+                    while (true){
+
+                       //busId: 1  lineId:1
+                        ctrLine1_1 =
+                                createVehicleOnMap(1L,1L,getPosLine1,ctrLine1_1,initLine1_1);
+
+                        //busId:2, lineId:1
+                        ctrLine1_2 =
+                                createVehicleOnMap(1L,2L,getPosLine1,ctrLine1_2,initLine1_2);
+
+                        //busId:3, lineId:1
+                        ctrLine1_3 =
+                                createVehicleOnMap(1L,3L,getPosLine1,ctrLine1_3,initLine1_3);
+
+                        //busId:4, lineId:1
+                        ctrLine1_4 =
+                                createVehicleOnMap(1L,4L,getPosLine1,ctrLine1_4,initLine1_4);
+
+                        //busId:5, lineId:1
+                        ctrLine1_5 =
+                                createVehicleOnMap(1L, 5L,getPosLine1,ctrLine1_5,initLine1_5);
+
+                        //busId:6, lineId:2
+                        ctrLine1Reverse_1 =
+                                createVehicleOnMap(2L,6L,getPosLine1Reverse,ctrLine1Reverse_1,initLine1Reverse_1);
+
+                        //busId:7, lineId:2
+                        ctrLine1Reverse_2 =
+                                createVehicleOnMap(2L,7L,getPosLine1Reverse,ctrLine1Reverse_2,initLine1Reverse_2);
 
 
-                        String posJson4 = null;
-                        String posJson5 = null;
-                        BusJson bus4 = null;
-                        BusJson bus5 = null;
+                        //busId:8, lineId:2
+                        ctrLine1Reverse_3 =
+                                createVehicleOnMap(2L,8L,getPosLine1Reverse,ctrLine1Reverse_3,initLine1Reverse_3);
 
-                        if (i <= getPosLine2.size() ) {
-                               bus4 = new BusJson("position",
-                                    Long.valueOf(3),
-                                    Long.valueOf(4),
-                                    getPosLine2.get(i),
-                                    getPosLine2.get(i + 1));
-                            posJson4 = bus4.createBusJSON();
-                        }
+                        //busId:9, lineId:3
+                        ctrLine2_1 =
+                                createVehicleOnMap(3L,9L,getPosLine2,ctrLine2_1,initLine2_1);
 
+                        //busId:10, lineId:3
+                        ctrLine2_2 =
+                                createVehicleOnMap(3L,10L,getPosLine2,ctrLine2_2,initLine2_2);
 
+                        //busId:11, lineId:4
+                        ctrLine2Reverse_1 =
+                                createVehicleOnMap(4L,11L,getPosLine2Reverse,ctrLine2Reverse_1,initLine2Reverse_1);
 
-                        if (i+400 <= getPosLine2.size()) {
-                           bus5 = new BusJson("position",
-                                    Long.valueOf(4),
-                                    Long.valueOf(5),
-                                    getPosLine2.get(i + 400),
-                                    getPosLine2.get(i + 401));
-                            posJson5 = bus5.createBusJSON();
-                        }
+                        //busId:12, lineId:1
+                        ctrLine2Reverse_2 =
+                                createVehicleOnMap(4L,12L,getPosLine2Reverse,ctrLine2Reverse_2,initLine2Reverse_2);
 
 
-                        if ( i % 100 == 0 && checkStatus ==0 ){
-                            status = new StatusJson("status",
-                                    busPosition.lineId,
-                                    busPosition.vehicleId,
-                                    "ok",
-                                    "Bus is running as expected",
-                                    "A text for bus status");
+                     /*   counter6 =
+                                createVehicleOnMap(4L,
+                                        1L,
+                                        getPosLine1.get(counter6),
+                                        getPosLine1.get(counter6 + 1),
+                                        counter6,
+                                        ctr6,
+                                        getPosLine1.size());*/
 
-                            String statJson = status.createStatusJSON();
-                            jmsTopicHashMap.get(status.getLineId()).produce(statJson);
-                            System.out.println(statJson);
-                            checkStatus=1;
-                        } else if ( i % 100 == 0 && checkStatus ==1 ){
-                            status = new StatusJson("status",
-                                    busPosition.lineId,
-                                    busPosition.vehicleId,
-                                    "warning",
-                                    "Bus has problems.",
-                                    "A text for bus warning");
-
-                            String statJson = status.createStatusJSON();
-                            jmsTopicHashMap.get(status.getLineId()).produce(statJson);
-                            System.out.println(statJson);
-                            checkStatus=2;
-                        }
-                        else if ( i % 100 == 0 && checkStatus ==2 ){
-                            status = new StatusJson("status",
-                                    busPosition.lineId,
-                                    busPosition.vehicleId,
-                                    "error",
-                                    "Bus is not running.",
-                                    "A text for bus error");
-
-                            String statJson = status.createStatusJSON();
-                            jmsTopicHashMap.get(status.getLineId()).produce(statJson);
-                            System.out.println(statJson);
-                            checkStatus=0;
-
-                        }
-
-                        System.out.println((bus.getLineId()));
-                        System.out.println((bus2.getLineId()));
-                        System.out.println((bus3.getLineId()));
+                    }
 
 
 
-                        System.out.println(jmsTopicHashMap.keySet().toString());
-
-                        jmsTopicHashMap.get(bus.getLineId()).produce(posJson);
-                        jmsTopicHashMap.get(bus2.getLineId()).produce(posJson2);
-                        jmsTopicHashMap.get(bus3.getLineId()).produce(posJson3);
-                        jmsTopicHashMap.get(bus4.getLineId()).produce(posJson4);
-                        jmsTopicHashMap.get(bus5.getLineId()).produce(posJson5);
-
-
-                        stompProducer.produce("StompTest");
-                        // System.out.println("SeqId " + busPosition.seqId + " BusId: " + busPosition.vehicleId + " pos X: " + busPosition.gpsLat + " pos Y: " + busPosition.gpsLon);
-                        System.out.println(posJson);
-                        System.out.println(posJson2);
-                        System.out.println(posJson3);
-                        System.out.println(posJson4);
-                        System.out.println(posJson5);
-
-                            Thread.sleep(500);
-                 }
 
                 }
                 catch (Exception e){
@@ -215,15 +209,74 @@ public class FakeBusPositions {
         }, Akka.system().dispatcher());
     }
 
+    private int createVehicleOnMap(Long lineId,
+                                   Long vehicleId,
+                                   Coordinates posList,
+                                   int counter,
+                                   int initCounter) throws InterruptedException{
+
+
+
+
+        if (counter == posList.getList().size()){
+            createStatusOff(lineId, vehicleId);
+            counter = initCounter;
+
+        }
+        else
+        {
+
+            BigDecimal vehicleLat = posList.getIndex(counter);
+            BigDecimal vehicleLon = posList.getIndex(counter + 1);
+            createVehicleCoordinates(lineId,vehicleId, vehicleLat, vehicleLon);
+            counter=counter+2;
+        }
+
+        return counter;
+
+    }
+
+    private void createVehicleCoordinates (Long lineId, Long vehicleId, BigDecimal vehicleLat, BigDecimal vehicleLon) throws InterruptedException{
+
+        BusJson bus = new BusJson("position",
+                lineId,
+                vehicleId,
+                vehicleLat,
+                vehicleLon
+        );
+
+        String posJson = bus.createBusJSON();
+        jmsTopicHashMap.get(LineRoutes.findLine(lineId).lineCode).produce(posJson);
+        System.out.println(posJson);
+        Thread.sleep(500);
+
+
+    }
+
+    private void createStatusOff(Long lineId, Long vehicleId){
+        StatusJson status = new StatusJson("status",
+                lineId,
+                vehicleId,
+                "off",
+                "Bus Has completed the route",
+                "A text for bus status");
+        String statusJson = status.createStatusJSON();
+        jmsTopicHashMap.get(LineRoutes.findLine(lineId).lineCode).produce(statusJson);
+        System.out.println(statusJson);
+
+    }
+
     private HashMap createAllTopics(){
 
         HashMap<Long, JMSProducer> lineTopicHashMap = new LinkedHashMap<Long, JMSProducer>();
         int lineSize = getAllBusLines().size();
 
         for (int i =0; i<lineSize;i++){
-            System.out.println("Get:   "+getAllBusLines().get(i).lineTopic);
-            lineTopicHashMap.put(getAllBusLines().get(i).lineId,
-                    new JMSProducer("tcp://" + hostValue + ":" + jmsPortValue, getAllBusLines().get(i).lineTopic));
+            if (!lineTopicHashMap.containsKey(getAllBusLines().get(i).lineCode)) {
+                System.out.println("Get:   " + getAllBusLines().get(i).lineTopic);
+                lineTopicHashMap.put(getAllBusLines().get(i).lineCode,
+                                      new JMSProducer("tcp://" + hostValue + ":" + jmsPortValue, getAllBusLines().get(i).lineTopic));
+            }
 
         }
         return lineTopicHashMap;
