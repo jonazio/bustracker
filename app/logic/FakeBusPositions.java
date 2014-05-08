@@ -115,52 +115,52 @@ public class FakeBusPositions {
 
                        //busId: 1  lineId:1
                         ctrLine1_1 =
-                                createVehicleOnMap(1L,1L,getPosLine1,ctrLine1_1,initLine1_1);
+                                createVehicleOnMap(1L,1L,getPosLine1,ctrLine1_1);
 
                         //busId:2, lineId:1
                         ctrLine1_2 =
-                                createVehicleOnMap(1L,2L,getPosLine1,ctrLine1_2,initLine1_2);
+                                createVehicleOnMap(1L,2L,getPosLine1,ctrLine1_2);
 
                         //busId:3, lineId:1
                         ctrLine1_3 =
-                                createVehicleOnMap(1L,3L,getPosLine1,ctrLine1_3,initLine1_3);
+                                createVehicleOnMap(1L,3L,getPosLine1,ctrLine1_3);
 
                         //busId:4, lineId:1
                         ctrLine1_4 =
-                                createVehicleOnMap(1L,4L,getPosLine1,ctrLine1_4,initLine1_4);
+                                createVehicleOnMap(1L,4L,getPosLine1,ctrLine1_4);
 
                         //busId:5, lineId:1
                         ctrLine1_5 =
-                                createVehicleOnMap(1L, 5L,getPosLine1,ctrLine1_5,initLine1_5);
+                                createVehicleOnMap(1L, 5L,getPosLine1,ctrLine1_5);
 
                         //busId:6, lineId:2
                         ctrLine1Reverse_1 =
-                                createVehicleOnMap(2L,6L,getPosLine1Reverse,ctrLine1Reverse_1,initLine1Reverse_1);
+                                createVehicleOnMap(2L,6L,getPosLine1Reverse,ctrLine1Reverse_1);
 
                         //busId:7, lineId:2
                         ctrLine1Reverse_2 =
-                                createVehicleOnMap(2L,7L,getPosLine1Reverse,ctrLine1Reverse_2,initLine1Reverse_2);
+                                createVehicleOnMap(2L,7L,getPosLine1Reverse,ctrLine1Reverse_2);
 
 
                         //busId:8, lineId:2
                         ctrLine1Reverse_3 =
-                                createVehicleOnMap(2L,8L,getPosLine1Reverse,ctrLine1Reverse_3,initLine1Reverse_3);
+                                createVehicleOnMap(2L,8L,getPosLine1Reverse,ctrLine1Reverse_3);
 
                         //busId:9, lineId:3
                         ctrLine2_1 =
-                                createVehicleOnMap(3L,9L,getPosLine2,ctrLine2_1,initLine2_1);
+                                createVehicleOnMap(3L,9L,getPosLine2,ctrLine2_1);
 
                         //busId:10, lineId:3
                         ctrLine2_2 =
-                                createVehicleOnMap(3L,10L,getPosLine2,ctrLine2_2,initLine2_2);
+                                createVehicleOnMap(3L,10L,getPosLine2,ctrLine2_2);
 
                         //busId:11, lineId:4
                         ctrLine2Reverse_1 =
-                                createVehicleOnMap(4L,11L,getPosLine2Reverse,ctrLine2Reverse_1,initLine2Reverse_1);
+                                createVehicleOnMap(4L,11L,getPosLine2Reverse,ctrLine2Reverse_1);
 
                         //busId:12, lineId:1
                         ctrLine2Reverse_2 =
-                                createVehicleOnMap(4L,12L,getPosLine2Reverse,ctrLine2Reverse_2,initLine2Reverse_2);
+                                createVehicleOnMap(4L,12L,getPosLine2Reverse,ctrLine2Reverse_2);
 
 
                       Thread.sleep(500);
@@ -190,13 +190,13 @@ public class FakeBusPositions {
     private int createVehicleOnMap(Long lineId,
                                    Long vehicleId,
                                    Coordinates posList,
-                                   int counter,
-                                   int initCounter) {
+                                   int counter) {
 
 
         if (counter == posList.getList().size()){
             createStatusOff(lineId, vehicleId);
-            counter = initCounter;
+            //counter = initCounter;
+            counter =0;
 
         }
         else
