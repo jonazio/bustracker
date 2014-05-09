@@ -243,7 +243,6 @@ public class FakeBusPositions {
         }
         else
         {
-            System.out.println(counter);
             BigDecimal vehicleLat = posList.getIndex(counter);
             BigDecimal vehicleLon = posList.getIndex(counter + 1);
             createVehicleCoordinates(lineId,vehicleId, vehicleLat, vehicleLon);
