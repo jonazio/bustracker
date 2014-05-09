@@ -51,15 +51,17 @@ public class FakeBusPositions {
     private static final String errorType="error";
     private static final String offType="off";
 
-    private static final String warningText="Bus has problems.";
-    private static final String okText="Bus is running as expected";
-    private static final String errorText="Bus is not running.";
-    private static final String offText="Bus Has completed the route.";
+    private static final String warningText="Bussen är försenad.";
+    private static final String okText="Bussen är på väg.";
+    private static final String errorText="Bussen har tekniska problem.";
+    private static final String offText="Bus has completed the route.";
 
-    private static final String warningDescription="A text for bus warning";
-    private static final String okDescription="A text for bus ok status";
-    private static final String errorDescription="A text for bus error";
+    private static final String warningDescription="Köer i trafiken.";
+    private static final String okDescription="";
+    private static final String errorDescription="Bussen kan tas ur trafik.";
     private static final String offDescription="A text for bus off status";
+
+
 
 
 
@@ -210,15 +212,15 @@ public class FakeBusPositions {
 
     private void createBusStatusMessage(Long lineId, Long vehicleId, int counter){
 
-        if (counter % 300 == 0 ){
+        if ((counter % 300 == 0 && (vehicleId == 1L )|| (counter % 200 == 0 && vehicleId == 7L))){
             createStatusMessage(lineId, vehicleId, errorType, errorText, errorDescription);
 
         }
-        else if (counter % 200 == 0){
+        else if ((counter % 200 == 0 && vehicleId == 1L ) || (counter % 300 == 0 && vehicleId == 7L) ){
             createStatusMessage(lineId, vehicleId, warningType, warningText, warningDescription);
 
         }
-        else if (counter % 100 == 0){
+        else if (counter % 100 == 0 && (vehicleId == 1L || vehicleId == 7L)){
             createStatusMessage(lineId, vehicleId, okType, okText, okDescription);
 
         }
@@ -241,7 +243,7 @@ public class FakeBusPositions {
         }
         else
         {
-
+            System.out.println(counter);
             BigDecimal vehicleLat = posList.getIndex(counter);
             BigDecimal vehicleLon = posList.getIndex(counter + 1);
             createVehicleCoordinates(lineId,vehicleId, vehicleLat, vehicleLon);
