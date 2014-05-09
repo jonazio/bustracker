@@ -34,17 +34,38 @@ public class FakeBusPositions {
 
 
     private static final int initLine1_1 = 0;
-    private static final int initLine1_2 = 800;
-    private static final int initLine1_3 = 1500;
-    private static final int initLine1_4 = 1900;
-    private static final int initLine1_5 = 2200;
+    private static final int initLine1_2 = 1600;
+    private static final int initLine1_3 = 3000;
+    private static final int initLine1_4 = 3800;
+    private static final int initLine1_5 = 4400;
     private static final int initLine1Reverse_1 = 0;
-    private static final int initLine1Reverse_2 = 1200;
-    private static final int initLine1Reverse_3 = 1700;
+    private static final int initLine1Reverse_2 = 2400;
+    private static final int initLine1Reverse_3 = 3400;
     private static final int initLine2_1 = 0;
-    private static final int initLine2_2 = 800;
+    private static final int initLine2_2 = 1600;
     private static final int initLine2Reverse_1 = 0;
-    private static final int initLine2Reverse_2 = 700;
+    private static final int initLine2Reverse_2 = 1400;
+
+    private static final String warningType="warning";
+    private static final String okType="ok";
+    private static final String errorType="error";
+    private static final String offType="off";
+
+    private static final String warningText="Bus has problems.";
+    private static final String okText="Bus is running as expected";
+    private static final String errorText="Bus is not running.";
+    private static final String offText="Bus Has completed the route.";
+
+    private static final String warningDescription="A text for bus warning";
+    private static final String okDescription="A text for bus ok status";
+    private static final String errorDescription="A text for bus error";
+    private static final String offDescription="A text for bus off status";
+
+
+
+
+
+
 
     /*
     private int counter1 = 0;
@@ -158,7 +179,7 @@ public class FakeBusPositions {
                         ctrLine2Reverse_1 =
                                 createVehicleOnMap(4L,11L,getPosLine2Reverse,ctrLine2Reverse_1);
 
-                        //busId:12, lineId:1
+                        //busId:12, lineId:4
                         ctrLine2Reverse_2 =
                                 createVehicleOnMap(4L,12L,getPosLine2Reverse,ctrLine2Reverse_2);
 
@@ -187,6 +208,25 @@ public class FakeBusPositions {
         }, Akka.system().dispatcher());
     }
 
+    private void createBusStatusMessage(Long lineId, Long vehicleId, int counter){
+
+        if (counter % 300 == 0 ){
+            createStatusMessage(lineId, vehicleId, errorType, errorText, errorDescription);
+
+        }
+        else if (counter % 200 == 0){
+            createStatusMessage(lineId, vehicleId, warningType, warningText, warningDescription);
+
+        }
+        else if (counter % 100 == 0){
+            createStatusMessage(lineId, vehicleId, okType, okText, okDescription);
+
+        }
+
+    }
+
+
+
     private int createVehicleOnMap(Long lineId,
                                    Long vehicleId,
                                    Coordinates posList,
@@ -194,7 +234,7 @@ public class FakeBusPositions {
 
 
         if (counter == posList.getList().size()){
-            createStatusOff(lineId, vehicleId);
+            createStatusMessage(lineId, vehicleId, offType, offText, offDescription);
             //counter = initCounter;
             counter =0;
 
@@ -205,6 +245,7 @@ public class FakeBusPositions {
             BigDecimal vehicleLat = posList.getIndex(counter);
             BigDecimal vehicleLon = posList.getIndex(counter + 1);
             createVehicleCoordinates(lineId,vehicleId, vehicleLat, vehicleLon);
+            createBusStatusMessage(lineId, vehicleId, counter);
             counter=counter+2;
         }
 
@@ -227,13 +268,13 @@ public class FakeBusPositions {
 
     }
 
-    private void createStatusOff(Long lineId, Long vehicleId){
+    private void createStatusMessage(Long lineId, Long vehicleId, String messagetType, String messageText, String messageDesc){
         StatusJson status = new StatusJson("status",
                 lineId,
                 vehicleId,
-                "off",
-                "Bus Has completed the route",
-                "A text for bus status");
+                messagetType,
+                messageText,
+                messageDesc);
         String statusJson = status.createStatusJSON();
         jmsTopicHashMap.get(LineRoutes.findLine(lineId).lineCode).produce(statusJson);
         System.out.println(statusJson);
