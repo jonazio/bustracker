@@ -26,6 +26,7 @@ public class FakeBusPositions {
 
     public int currentPosition = 1;
     public HashMap<Long, JMSProducer> jmsTopicHashMap;
+    public HashMap<Long,Long> checkpointHashMap;
 
     private StompProducer stompProducer;
     private static List<Position> busPositions = null;
@@ -60,11 +61,6 @@ public class FakeBusPositions {
     private static final String okDescription="";
     private static final String errorDescription="Bussen kan tas ur trafik.";
     private static final String offDescription="A text for bus off status";
-
-
-
-
-
 
 
 
@@ -246,11 +242,34 @@ public class FakeBusPositions {
             BigDecimal vehicleLat = posList.getIndex(counter);
             BigDecimal vehicleLon = posList.getIndex(counter + 1);
             createVehicleCoordinates(lineId,vehicleId, vehicleLat, vehicleLon);
+            onCheckpoint(lineId,vehicleId, vehicleLat, vehicleLon);
             createBusStatusMessage(lineId, vehicleId, counter);
             counter=counter+2;
         }
 
         return counter;
+
+    }
+
+    private void createCheckpointStatusMessage(Long lineId, Long vehicleId, Long checkpointId ){
+        createStatusMessage(lineId, vehicleId, "checkpoint", checkpointId.toString(),"");
+    }
+
+    private void onCheckpoint(Long lineId,Long vehicleId, BigDecimal vehicleLat,BigDecimal vehicleLon){
+         for (int i = 0; i < LineCheckpoint.getCheckpointByLineId(lineId).size(); i++ ) {
+
+            Long checkPointId = LineCheckpoint.getCheckpointByLineId(lineId).get(i).checkpointId;
+
+
+
+             if ((vehicleLat.equals( BigDecimal.valueOf(Checkpoint.findCheckpoint(checkPointId).checkpointLat)))
+                     && (vehicleLon.equals(BigDecimal.valueOf(Checkpoint.findCheckpoint(checkPointId).checkpointLon)))){
+
+                createCheckpointStatusMessage(lineId, vehicleId, checkPointId);
+            }
+
+
+        }
 
     }
 
@@ -269,11 +288,11 @@ public class FakeBusPositions {
 
     }
 
-    private void createStatusMessage(Long lineId, Long vehicleId, String messagetType, String messageText, String messageDesc){
+    private void createStatusMessage(Long lineId, Long vehicleId, String messageType, String messageText, String messageDesc){
         StatusJson status = new StatusJson("status",
                 lineId,
                 vehicleId,
-                messagetType,
+                messageType,
                 messageText,
                 messageDesc);
         String statusJson = status.createStatusJSON();
