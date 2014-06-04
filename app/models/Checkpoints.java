@@ -3,9 +3,6 @@ package models;
 import play.db.ebean.Model;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
-import java.util.List;
-
 
 
 /**
@@ -13,8 +10,8 @@ import java.util.List;
  */
 
 @Entity
-@Table(name="Checkpoint")
-public class Checkpoint extends Model{
+@Table(name="Checkpoints")
+public class Checkpoints extends Model{
     @Id
     @Column(name="checkpoint_id")
     public Long checkpointId;
@@ -30,13 +27,13 @@ public class Checkpoint extends Model{
 
   /*  @OneToMany(cascade=CascadeType.PERSIST)
    // @JoinColumn(name="checkpoint_id")
-    public List<LineCheckpoint> lineCheckpoints;*/
+    public List<LineCheckpoints> lineCheckpoints;*/
 
-    public static Finder<Long, Checkpoint> find = new Finder(
-            Long.class, Checkpoint.class
+    public static Finder<Long, Checkpoints> find = new Finder(
+            Long.class, Checkpoints.class
     );
 
-    public static Checkpoint findCheckpoint(Long checkpointId){
+    public static Checkpoints findCheckpoint(Long checkpointId){
         return  find.byId(checkpointId );
     }
 

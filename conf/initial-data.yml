@@ -68,50 +68,50 @@ lineroutes:
 # checkpoint
 checkpoint:
 
-   - !!models.Checkpoint
+   - !!models.Checkpoints
        checkpointId:   1
        checkpointName: Scheelegatan
        checkpointLat:  59.3329554
        checkpointLon:  18.0440446
 
-   - !!models.Checkpoint
+   - !!models.Checkpoints
        checkpointId:   3
        checkpointName: Vasagatan
        checkpointLat:  59.3338089
        checkpointLon:  18.0568461
 
-   - !!models.Checkpoint
+   - !!models.Checkpoints
        checkpointId:   5
        checkpointName: Hötorget
        checkpointLat:  59.3352937
        checkpointLon:  18.0624829
 
-   - !!models.Checkpoint
+   - !!models.Checkpoints
        checkpointId:   7
        checkpointName: Stureplan
        checkpointLat:  59.3363423
        checkpointLon:  18.0728971
 
 
-   - !!models.Checkpoint
+   - !!models.Checkpoints
        checkpointId:   2
        checkpointName: Scheelegatan
        checkpointLat:  59.3328327
        checkpointLon:  18.0449767
 
-   - !!models.Checkpoint
+   - !!models.Checkpoints
        checkpointId:   4
        checkpointName: Vasagatan
        checkpointLat:  59.333991
        checkpointLon:  18.0575374
 
-   - !!models.Checkpoint
+   - !!models.Checkpoints
        checkpointId:   6
        checkpointName: Hötorget
        checkpointLat:  59.3355038
        checkpointLon:  18.0632806
 
-   - !!models.Checkpoint
+   - !!models.Checkpoints
        checkpointId:   8
        checkpointName: Stureplan
        checkpointLat:  59.3368295
@@ -120,50 +120,122 @@ checkpoint:
 # line_checkpoint
 linecheckpoint:
 
-   - !!models.LineCheckpoint
+   - !!models.LineCheckpoints
           lineCheckpointId: 1
           checkpointSeq:     1
           checkpointId:      1
           lineId:            1
 
-   - !!models.LineCheckpoint
+   - !!models.LineCheckpoints
           lineCheckpointId: 2
           checkpointSeq:     2
           checkpointId:      3
           lineId:            1
 
-   - !!models.LineCheckpoint
+   - !!models.LineCheckpoints
           lineCheckpointId: 3
           checkpointSeq:     3
           checkpointId:      5
           lineId:            1
 
-   - !!models.LineCheckpoint
+   - !!models.LineCheckpoints
           lineCheckpointId: 4
           checkpointSeq:     4
           checkpointId:      7
           lineId:            1
 
-   - !!models.LineCheckpoint
+   - !!models.LineCheckpoints
           lineCheckpointId: 5
           checkpointSeq:     1
           checkpointId:      2
           lineId:            2
 
-   - !!models.LineCheckpoint
+   - !!models.LineCheckpoints
           lineCheckpointId: 6
           checkpointSeq:     2
           checkpointId:      4
           lineId:            2
 
-   - !!models.LineCheckpoint
+   - !!models.LineCheckpoints
           lineCheckpointId: 7
           checkpointSeq:     3
           checkpointId:      6
           lineId:            2
 
-   - !!models.LineCheckpoint
+   - !!models.LineCheckpoints
           lineCheckpointId: 8
           checkpointSeq:     4
           checkpointId:      8
           lineId:            2
+
+   - !!models.Statuses
+          id:        1
+          statusType: warning
+          statusText: Bussen är försenad.
+          description: Köer i trafiken.
+
+   - !!models.Statuses
+             id:        2
+             statusType: ok
+             statusText: Bussen är på väg.
+             description:
+
+   - !!models.Statuses
+             id:        3
+             statusType: error
+             statusText: Bussen har tekniska problem.
+             description: Bussen kan tas ur trafik.
+
+   - !!models.Statuses
+             id:        4
+             statusType: off
+             statusText: Bus has completed the route.
+             description: A text for bus of status.
+
+
+   - !!models.Vehicles
+            id: 1
+            registrationNumber:
+
+   - !!models.Vehicles
+               id: 2
+               registrationNumber:
+
+   - !!models.Vehicles
+               id: 3
+               registrationNumber:
+
+   - !!models.Vehicles
+               id: 4
+               registrationNumber:
+
+   - !!models.Vehicles
+               id: 5
+               registrationNumber:
+
+   - !!models.Vehicles
+               id: 6
+               registrationNumber:
+
+   - !!models.Vehicles
+               id: 7
+               registrationNumber:
+
+   - !!models.Vehicles
+                   id: 8
+                   registrationNumber:
+
+   - !!models.Vehicles
+                  id: 9
+                  registrationNumber:
+
+   - !!models.Vehicles
+                  id: 10
+                  registrationNumber:
+
+   - !!models.Vehicles
+                  id: 11
+                  registrationNumber:
+
+
+

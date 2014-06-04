@@ -22,7 +22,7 @@ public class Application extends Controller {
     public static Result index() {
         Position busPosition = new Position();
         busPosition = busPosition.findBusPosition(1L);
-        return ok(index.render("Busslinje: " + busPosition.lineId));
+        return ok(index.render("Your new application is ready."));
     }
 
     public static Result getAllLines(){
@@ -44,9 +44,7 @@ public class Application extends Controller {
 
     public static Result getAllCheckpoints(){
 
-
-
-
+       response().setHeader("Access-Control-Allow-Origin", "*");
         return ok(LineJson.getAllCheckpoints());
     }
 

@@ -33,7 +33,7 @@ public class LineRoutes extends Model {
     public String routeTo;
 
     //@OneToMany()
-   // List<LineCheckpoint> lineCheckpoints;
+   // List<LineCheckpoints> lineCheckpoints;
 
 
     public static Finder<Long, LineRoutes> find = new Finder(

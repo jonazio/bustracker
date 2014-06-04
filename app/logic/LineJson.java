@@ -1,14 +1,13 @@
 package logic;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import models.Checkpoint;
-import models.LineCheckpoint;
+import models.Checkpoints;
+import models.LineCheckpoints;
 import models.LineRoutes;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by firkav on 2014-05-06.
@@ -22,12 +21,6 @@ public class LineJson {
     private String lineType;
     private String routeFrom;
     private String routeTo;
-
-   // private List<ObjectMapper>  objMapperList ;
-    //  private LinkedHashMap<String, Object> lineHashMap;
-   // private Map<String, Object> lineMap;
-   // private LinkedHashMap<String, Object> checkpointHashMap;
-
 
     public static String getAllCheckpoints() {
         try {
@@ -47,18 +40,18 @@ public class LineJson {
                 lineHashMap.put("routeFrom", LineRoutes.getAllLines().get(i).routeFrom);
                 lineHashMap.put("routeTo", LineRoutes.getAllLines().get(i).routeTo);
 
-                // for (LineCheckpoint listCheckpoint : LineCheckpoint.getCheckpointByLineId(LineRoutes.getAllLines().get(i).lineId))
-                for (int j = 0; j < LineCheckpoint.getCheckpointByLineId(LineRoutes.getAllLines().get(i).lineId).size(); j++) {
+                // for (LineCheckpoints listCheckpoint : LineCheckpoints.getCheckpointByLineId(LineRoutes.getAllLines().get(i).lineId))
+                for (int j = 0; j < LineCheckpoints.getCheckpointByLineId(LineRoutes.getAllLines().get(i).lineId).size(); j++) {
                     LinkedHashMap<String, Object> checkpointHashMap = new LinkedHashMap<String, Object>();
-                    Long checkPoint = LineCheckpoint
+                    Long checkPoint = LineCheckpoints
                             .getCheckpointByLineId(LineRoutes
                                     .getAllLines()
                                     .get(i).lineId)
                             .get(j).checkpointId;
-                    checkpointHashMap.put("id", Checkpoint.findCheckpoint(checkPoint).checkpointId);
-                    checkpointHashMap.put("name", Checkpoint.findCheckpoint(checkPoint).checkpointName);
-                    checkpointHashMap.put("lat", Checkpoint.findCheckpoint(checkPoint).checkpointLat);
-                    checkpointHashMap.put("lon", Checkpoint.findCheckpoint(checkPoint).checkpointLon);
+                    checkpointHashMap.put("id", Checkpoints.findCheckpoint(checkPoint).checkpointId);
+                    checkpointHashMap.put("name", Checkpoints.findCheckpoint(checkPoint).checkpointName);
+                    checkpointHashMap.put("lat", Checkpoints.findCheckpoint(checkPoint).checkpointLat);
+                    checkpointHashMap.put("lon", Checkpoints.findCheckpoint(checkPoint).checkpointLon);
                     checkpoints.add(j, checkpointHashMap);
                     //lineHashMap.put("lineStops", checkpointHashMap);
 
@@ -76,7 +69,8 @@ public class LineJson {
                 //return objectMapper.writeValueAsString(lineHashMap);
                 // System.out.println(json);
             }
-            jsonFinal = "parseCheckpoints([" + strBuilder.toString() + "]);";
+
+            jsonFinal = "[" + strBuilder.toString() + "]";
             return jsonFinal;
 
         } catch (Exception e) {

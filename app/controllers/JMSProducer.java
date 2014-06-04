@@ -25,6 +25,7 @@ public class JMSProducer {
             session = connection.createSession(false,
                     Session.AUTO_ACKNOWLEDGE);
             this.topic = session.createTopic(topic);
+
             producer = session.createProducer(this.topic);
         }
         catch(JMSException exp) {
