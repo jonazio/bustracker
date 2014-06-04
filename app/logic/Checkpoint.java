@@ -40,7 +40,7 @@ public class Checkpoint {
                         passedCheckpoints.put(vehicleId, new LinkedHashSet<Long>());
                     }
                 passedCheckpoints.get(vehicleId).add(checkpointId);
-                System.out.println(passedCheckpoints.get(vehicleId));
+                //System.out.println(passedCheckpoints.get(vehicleId));
                 setCheckpointId(checkpointId);
                 result = true;
             }
