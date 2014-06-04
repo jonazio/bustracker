@@ -45,6 +45,7 @@ public class StatusPublish implements Observer, PublishElement{
             if (statusId == offStatusId){
                 Checkpoint checkpoint = Checkpoint.getInstance();
                 checkpoint.emptyPassedCheckpoints(vehicleId);
+                publish();
             }
            // No need to send status for now.
            // publish();
