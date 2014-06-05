@@ -11,10 +11,8 @@ import scala.concurrent.duration.Duration;
 
 
 import java.math.BigDecimal;
-import java.util.LinkedHashMap;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
-import java.util.HashMap;
 
 
 public class FakeBusPositions {
@@ -93,6 +91,9 @@ public class FakeBusPositions {
                     PositionPublish positionPublish = new PositionPublish(coordinateInit);
                     CheckpointPublish checkpointPublish = new CheckpointPublish(coordinateInit);
                     StatusPublish statusPublish = new StatusPublish(coordinateInit);
+                    initPassedVehicles();
+
+
 
                     while (true){
 
@@ -112,9 +113,11 @@ public class FakeBusPositions {
                         ctrLine1_3 =
                                 createVehicleOnMap(3L,1L,getPosLine1,ctrLine1_3);
 
+
                         //busId:4, lineId:1
                         ctrLine1_4 =
                                 createVehicleOnMap(4L,1L,getPosLine1,ctrLine1_4);
+
 
                         //busId:5, lineId:1
                         ctrLine1_5 =
@@ -206,5 +209,23 @@ public class FakeBusPositions {
             // vehicle.setLastStatus(okType);
 
         }
+    }
+
+    private void initPassedVehicles(){
+        Checkpoint checkpoint = Checkpoint.getInstance();
+
+
+        //init passedchec kpoints for the vehicles that starts runing from middle of the map
+        Long v3[] = { 1L,3L };
+        Long v4[] = { 1L,3L,5L,7L };
+        Long v5[] = { 1L,3L,5L,7L };
+        Long v7[] = { 8L };
+        Long v8[] = { 4L,6L,8L };
+        checkpoint.getPassedCheckpoints().put(3L,new LinkedHashSet<Long>(Arrays.asList(v3)));
+        checkpoint.getPassedCheckpoints().put(4L,new LinkedHashSet<Long>(Arrays.asList(v4)));
+        checkpoint.getPassedCheckpoints().put(5L,new LinkedHashSet<Long>(Arrays.asList(v5)));
+        checkpoint.getPassedCheckpoints().put(7L,new LinkedHashSet<Long>(Arrays.asList(v7)));
+        checkpoint.getPassedCheckpoints().put(8L,new LinkedHashSet<Long>(Arrays.asList(v8)));
+
     }
 }
