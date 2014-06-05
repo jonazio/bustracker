@@ -102,7 +102,7 @@ public class LineJson {
                     statusHashMap.put("message","Bussen är på väg");
                     statusHashMap.put("text","");
                     initHashMap.put("status",statusHashMap);
-                    initHashMap.put("lineStopsPassed", checkpoint.getPassedCheckpoints().get(vehicleId));
+                    initHashMap.put("checkpointsPassed", checkpoint.getPassedCheckpoints().get(vehicleId));
 
                     jsonMessage = objectMapper.writeValueAsString(initHashMap);
                     strBuilder.append(jsonMessage);
@@ -144,7 +144,7 @@ public class LineJson {
                 statusHashMap.put("message","Bussen är på väg");
                 statusHashMap.put("text","");
                 initHashMap.put("status",statusHashMap);
-                initHashMap.put("lineStopsPassed", checkpoint.getPassedCheckpoints().get(vehicleList.get(i)));
+                initHashMap.put("checkpointsPassed", checkpoint.getPassedCheckpoints().get(vehicleList.get(i)));
 
                 jsonMessage = objectMapper.writeValueAsString(initHashMap);
                 strBuilder.append(jsonMessage);
