@@ -54,6 +54,8 @@ public class Checkpoint {
         passedCheckpoints.get(vehicleId).clear();
     }
 
+
+
     public Long getCheckpointId() {
         return checkpointId;
     }
@@ -84,5 +86,13 @@ public class Checkpoint {
 
     public void setCheckpointLon(Long checkpointLon) {
         this.checkpointLon = checkpointLon;
+    }
+
+    public LinkedHashMap<Long, LinkedHashSet<Long>> getPassedCheckpoints() {
+        return passedCheckpoints;
+    }
+
+    public void setPassedCheckpoints(LinkedHashMap<Long, LinkedHashSet<Long>> passedCheckpoints) {
+        this.passedCheckpoints = passedCheckpoints;
     }
 }

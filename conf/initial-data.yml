@@ -237,5 +237,86 @@ linecheckpoint:
                   id: 11
                   registrationNumber:
 
+   - !!models.VehicleStatuses
+                  id:  1
+                  vehicleId: 1
+                  statusId:
+                  lineId: 1
+                  timestamp:
 
+   - !!models.VehicleStatuses
+                     id: 2
+                     vehicleId: 2
+                     statusId:
+                     lineId: 1
+                     timestamp:
 
+   - !!models.VehicleStatuses
+                     id: 3
+                     vehicleId: 3
+                     statusId:
+                     lineId: 1
+                     timestamp:
+
+   - !!models.VehicleStatuses
+                     id: 4
+                     vehicleId: 4
+                     statusId:
+                     lineId: 1
+                     timestamp:
+
+   - !!models.VehicleStatuses
+                  id: 5
+                  vehicleId: 5
+                  statusId:
+                  lineId: 1
+                  timestamp:
+
+   - !!models.VehicleStatuses
+                     id: 6
+                     vehicleId: 6
+                     statusId:
+                     lineId: 2
+                     timestamp:
+
+   - !!models.VehicleStatuses
+                     id: 7
+                     vehicleId: 7
+                     statusId:
+                     lineId: 2
+                     timestamp:
+
+   - !!models.VehicleStatuses
+                     id: 8
+                     vehicleId: 8
+                     statusId:
+                     lineId: 2
+                     timestamp:
+
+   - !!models.VehicleStatuses
+                     id: 9
+                     vehicleId: 9
+                     statusId:
+                     lineId: 3
+                     timestamp:
+
+   - !!models.VehicleStatuses
+                     id: 10
+                     vehicleId: 10
+                     statusId:
+                     lineId: 3
+                     timestamp:
+
+   - !!models.VehicleStatuses
+                     id: 11
+                     vehicleId: 11
+                     statusId:
+                     lineId: 4
+                     timestamp:
+
+   - !!models.VehicleStatuses
+                     id: 12
+                     vehicleId: 12
+                     statusId:
+                     lineId: 4
+                     timestamp:

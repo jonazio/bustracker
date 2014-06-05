@@ -48,6 +48,10 @@ public class VehicleStatuses extends Model {
         return find.where().eq("vehicle_id", vehicleId).orderBy("timestamp desc").findUnique();
     }
 
+    public static List<VehicleStatuses> getStatusByLineId(Long lineId){
+        return find.where().eq("line_id",lineId).findList();
+    }
+
 
 
 

@@ -80,6 +80,91 @@ public class LineJson {
 
 
     }
+
+    public static String initiateVehicleWithLineCode(Long lineCode){
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            LinkedHashMap<String, Object> initHashMap = new LinkedHashMap<String, Object>();
+            LinkedHashMap<String, Object> statusHashMap = new LinkedHashMap<String, Object>();
+            String jsonMessage = "";
+            String jsonFinal;
+            StringBuilder strBuilder = new StringBuilder();
+
+            Checkpoint checkpoint = Checkpoint.getInstance();
+                ArrayList vehicleList = Vehicle.getVehiclesForLineCode(lineCode);
+
+                for (int i = 0; i < vehicleList.size(); i++) {
+                    Long vehicleId = (Long)vehicleList.get(i);
+                   // initHashMap.put("id", vehicleList.get(i));
+                    initHashMap.put("id", vehicleId);
+                    initHashMap.put("lineId", Vehicle.getLineId(vehicleId));
+                    statusHashMap.put("type","ok");
+                    statusHashMap.put("message","Bussen är på väg");
+                    statusHashMap.put("text","");
+                    initHashMap.put("status",statusHashMap);
+                    initHashMap.put("lineStopsPassed", checkpoint.getPassedCheckpoints().get(vehicleId));
+
+                    jsonMessage = objectMapper.writeValueAsString(initHashMap);
+                    strBuilder.append(jsonMessage);
+                    if (i!=vehicleList.size() - 1){
+                        strBuilder.append(",");
+                    }
+                }
+
+
+            jsonFinal = "[" + strBuilder.toString() + "]";
+
+            return jsonFinal;
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            return e.toString();
+        }
+
     }
+
+    public static String initiateVehicleWithLineId(Long lineId){
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            LinkedHashMap<String, Object> initHashMap = new LinkedHashMap<String, Object>();
+            LinkedHashMap<String, Object> statusHashMap = new LinkedHashMap<String, Object>();
+            String jsonMessage = "";
+            String jsonFinal;
+            StringBuilder strBuilder = new StringBuilder();
+
+            Checkpoint checkpoint = Checkpoint.getInstance();
+
+            ArrayList vehicleList = Vehicle.getVehiclesForLine(lineId);
+
+            for (int i = 0; i < vehicleList.size(); i++) {
+                initHashMap.put("id", vehicleList.get(i));
+                initHashMap.put("lineId", lineId);
+                statusHashMap.put("type","ok");
+                statusHashMap.put("message","Bussen är på väg");
+                statusHashMap.put("text","");
+                initHashMap.put("status",statusHashMap);
+                initHashMap.put("lineStopsPassed", checkpoint.getPassedCheckpoints().get(vehicleList.get(i)));
+
+                jsonMessage = objectMapper.writeValueAsString(initHashMap);
+                strBuilder.append(jsonMessage);
+                if (i!=vehicleList.size() - 1){
+                    strBuilder.append(",");
+                }
+            }
+
+
+            jsonFinal = "[" + strBuilder.toString() + "]";
+
+            return jsonFinal;
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            return e.toString();
+        }
+    }
+
+  }
 
 

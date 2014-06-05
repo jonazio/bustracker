@@ -31,4 +31,5 @@ public class Vehicles extends Model {
        List<Vehicles>  vehicleList = find.all();
         return vehicleList;
     }
+
 }

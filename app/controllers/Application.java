@@ -13,6 +13,8 @@ import views.html.*;
 
 import java.util.List;
 
+
+
 public class Application extends Controller {
 
     public static JMSProducer jmsProducer;
@@ -47,5 +49,19 @@ public class Application extends Controller {
        response().setHeader("Access-Control-Allow-Origin", "*");
         return ok(LineJson.getAllCheckpoints());
     }
+
+    public static Result getVehiclesforLineCode(Long lineCode){
+        response().setHeader("Access-Control-Allow-Origin", "*");
+        //  String arg = form().bindFromRequest.get("arg");
+        return(ok(LineJson.initiateVehicleWithLineCode(lineCode)));
+    }
+
+    public static Result getVehiclesforLineId(Long lineId){
+        response().setHeader("Access-Control-Allow-Origin", "*");
+        //  String arg = form().bindFromRequest.get("arg");
+        return(ok(LineJson.initiateVehicleWithLineId(lineId)));
+    }
+
+
 
 }

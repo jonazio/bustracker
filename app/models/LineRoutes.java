@@ -55,6 +55,10 @@ public class LineRoutes extends Model {
         return find.all();
     }
 
+    public static List<LineRoutes> getLinesForLineCode(Long lineCode){
+        return find.where().eq("line_code", lineCode).findList();
+    }
+
 }
 
 
