@@ -8,6 +8,9 @@ import java.util.List;
 
 /**
  * Created by firkav on 2014-06-04.
+ *
+ * Vehicle class is created to maintain vehicle related data.
+ * It is mainly used by CheckpointInitializer class to create initial data for vehicles and checkpoints when bustracker application is started.
  */
 public class Vehicle {
 

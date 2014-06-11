@@ -1,10 +1,7 @@
 package logic;
 
-import com.avaje.ebean.Ebean;
 import controllers.JMSProducer;
-import controllers.StompProducer;
 import models.*;
-import play.Play;
 import play.libs.Akka;
 import scala.concurrent.duration.Duration;
 
@@ -14,11 +11,16 @@ import java.math.BigDecimal;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * FakeBusPositions is the main class that starts the application.
+ * It creates fake positions, statuses and instantiates observer and  subject classes to be able to publish JSON formatted messages in message broker.
+ */
+
 
 public class FakeBusPositions {
 
     public HashMap<Long, JMSProducer> jmsTopicHashMap;
-    private CoordinateInitializer coordinateInit;
+    private TrackerData coordinateInit;
 
     private static final int initLine1_1 = 0;
     private static final int initLine1_2 = 1600;
@@ -71,7 +73,7 @@ public class FakeBusPositions {
 
 
                     int checkStatus = 0;
-                    //System.out.println(LineJson.getAllCheckpoints());
+                    //System.out.println(CheckpointInitializer.getAllCheckpoints());
 
 
                     int ctrLine1_1  = initLine1_1;
@@ -87,7 +89,7 @@ public class FakeBusPositions {
                     int ctrLine2Reverse_1 = initLine2Reverse_1;
                     int ctrLine2Reverse_2 = initLine2Reverse_2;
 
-                    coordinateInit = new CoordinateInitializer();
+                    coordinateInit = new TrackerData();
                     PositionPublish positionPublish = new PositionPublish(coordinateInit);
                     CheckpointPublish checkpointPublish = new CheckpointPublish(coordinateInit);
                     StatusPublish statusPublish = new StatusPublish(coordinateInit);

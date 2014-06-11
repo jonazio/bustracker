@@ -11,8 +11,10 @@ import java.util.List;
 
 /**
  * Created by firkav on 2014-05-06.
+ *
+ * CheckpointInitializer is used to create initial data for vehicle and checkpoints for front end application.
  */
-public class LineJson {
+public class CheckpointInitializer {
 
     private Long lineId;
     private String lineCode;

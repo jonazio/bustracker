@@ -1,10 +1,8 @@
 package controllers;
 
-import logic.LineJson;
+import logic.CheckpointInitializer;
 import models.LineRoutes;
 import models.Position;
-import org.apache.http.client.methods.HttpOptions;
-import org.apache.http.protocol.HTTP;
 import play.libs.Json;
 import play.mvc.*;
 
@@ -47,19 +45,19 @@ public class Application extends Controller {
     public static Result getAllCheckpoints(){
 
        response().setHeader("Access-Control-Allow-Origin", "*");
-        return ok(LineJson.getAllCheckpoints());
+        return ok(CheckpointInitializer.getAllCheckpoints());
     }
 
     public static Result getVehiclesforLineCode(Long lineCode){
         response().setHeader("Access-Control-Allow-Origin", "*");
         //  String arg = form().bindFromRequest.get("arg");
-        return(ok(LineJson.initiateVehicleWithLineCode(lineCode)));
+        return(ok(CheckpointInitializer.initiateVehicleWithLineCode(lineCode)));
     }
 
     public static Result getVehiclesforLineId(Long lineId){
         response().setHeader("Access-Control-Allow-Origin", "*");
         //  String arg = form().bindFromRequest.get("arg");
-        return(ok(LineJson.initiateVehicleWithLineId(lineId)));
+        return(ok(CheckpointInitializer.initiateVehicleWithLineId(lineId)));
     }
 
 

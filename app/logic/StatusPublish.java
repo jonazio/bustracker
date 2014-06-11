@@ -7,9 +7,11 @@ import java.util.LinkedHashMap;
 
 /**
  * Created by firkav on 2014-06-03.
+ *
+ * StatusPublish is a concrete observer class that is being notified by the subject and publishes status related data to a JMS topic in JSON.
  */
 public class StatusPublish implements Observer, PublishElement{
-    private CoordinateInitializer coorInit;
+    private TrackerData coorInit;
     private Long vehicleId;
     private Long lineId;
     private Long statusId;
@@ -24,7 +26,7 @@ public class StatusPublish implements Observer, PublishElement{
     private static final String messageType = "status";
     private static final Long offStatusId = 4L;
 
-    public StatusPublish(CoordinateInitializer coorInit){
+    public StatusPublish(TrackerData coorInit){
         this.coorInit = coorInit;
         coorInit.registerObserver(this);
         status = new Status();

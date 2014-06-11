@@ -7,7 +7,8 @@ import java.util.ArrayList;
 
 /**
  * Created by firkav on 2014-05-08.
- * This clas initilizes gpx files that includes coordinates for vehicle lines.
+ *
+ * Coordinates class supplies functions to create a list positions from GpsXmlReader for the given file.
  */
 public class Coordinates {
 

@@ -7,9 +7,12 @@ import java.util.LinkedHashMap;
 
 /**
  * Created by firkav on 2014-06-02.
+ *
+ * CheckpointPublish is a concrete observer class that is being notified by the subject
+ * and publishes checkpoint related data to a JMS topic in JSON.
  */
 public class CheckpointPublish implements Observer, PublishElement{
-    private CoordinateInitializer coorInit;
+    private TrackerData coorInit;
     private Long vehicleId;
     private Long lineId;
     private BigDecimal lat;
@@ -22,7 +25,7 @@ public class CheckpointPublish implements Observer, PublishElement{
     private static final String messageType = "status";
     private static final String statusType = "checkpoint";
 
-    public CheckpointPublish(CoordinateInitializer coorInit){
+    public CheckpointPublish(TrackerData coorInit){
         this.coorInit = coorInit;
         coorInit.registerObserver(this);
 

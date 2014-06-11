@@ -4,6 +4,8 @@ import models.Statuses;
 
 /**
  * Created by firkav on 2014-06-03.
+ *
+ * This class is used to maintain status related data.
  */
 public class Status {
     private Long statusId;

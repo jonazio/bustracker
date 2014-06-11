@@ -8,6 +8,8 @@ import java.util.*;
 
 /**
  * Created by firkav on 2014-06-02.
+ *
+ * This class is used to maintain checkpoints related data.
  */
 public class Checkpoint {
 

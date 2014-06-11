@@ -7,9 +7,11 @@ import java.util.LinkedHashMap;
 
 /**
  * Created by firkav on 2014-06-02.
+ *
+ * PositionPublish is a concrete observer class that is being notified by the subject and publishes position related data to a JMS topic in JSON.
  */
 public class PositionPublish implements Observer, PublishElement {
-    private CoordinateInitializer coorInit;
+    private TrackerData coorInit;
     private Long vehicleId;
     private Long lineId;
     private BigDecimal lat;
@@ -19,7 +21,7 @@ public class PositionPublish implements Observer, PublishElement {
 
     private static final String messageType = "position";
 
-    public PositionPublish(CoordinateInitializer coorInit){
+    public PositionPublish(TrackerData coorInit){
        this.coorInit = coorInit;
        coorInit.registerObserver(this);
     }

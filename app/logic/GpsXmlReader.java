@@ -2,6 +2,9 @@ package logic;
 
 /**
  * Created by firkav on 2014-04-07.
+ *
+ * Parses .gpx files with JAXB(Java Architecture for XML Binding) to be able to extract position parameters.
+ *
  */
 
 import java.io.File;
